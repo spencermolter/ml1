@@ -1,0 +1,439 @@
+/* --- Color & Font Variables --- */
+:root {
+    --bg-dark-1: #1a1a1d;
+    --bg-dark-2: #2c2c2f;
+    --bg-light-1: #3b3b3e;
+    --text-light: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --accent-blue: #4a90e2;
+    --accent-orange: #f5a623;
+    --accent-red: #d0021b;
+    --accent-purple: #8e44ad;
+    --font-primary: 'Poppins', sans-serif;
+}
+
+/* General Body Styles */
+body {
+    background-color: var(--bg-dark-1);
+    background-image: linear-gradient(180deg, var(--bg-dark-2) 0%, var(--bg-dark-1) 100%);
+    color: var(--text-light);
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+.container { max-width: 900px; margin: 0 auto; }
+header {
+    text-align: center; margin-bottom: 30px; color: var(--accent-blue);
+    display: flex; justify-content: space-between; align-items: center;
+}
+header h1 { font-weight: 600; }
+.card {
+    background-color: var(--bg-dark-2);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid var(--bg-light-1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); }
+.card h2 { margin-top: 0; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-weight: 600; }
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent-blue);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.card-header h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+/* Consistency Tracker Styles */
+.consistency-card { text-align: center; }
+.counters-container { display: flex; justify-content: space-around; margin: 20px 0; }
+.counter-number { display: block; font-size: 60px; font-weight: 600; }
+#gym-streak-display { color: var(--accent-blue); }
+#diet-counter-display { color: var(--accent-orange); }
+.counter-label { font-size: 18px; color: var(--text-muted); }
+.motivation-quote { font-style: italic; color: var(--text-muted); margin-top: 20px; }
+.schedule-visualizer { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+.day-indicator { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+.day-indicator.diet-day { background-color: var(--accent-orange); }
+.day-indicator.workout-and-diet-day { background: linear-gradient(to right, var(--accent-blue) 50%, var(--accent-orange) 50%); }
+.day-indicator.current-day { border: 2px solid var(--text-light); }
+
+/* Button Styles */
+.button-group { display: flex; justify-content: center; align-items: center; gap: 15px; }
+.log-button, .next-day-button, .skip-button, .meal-preset-btn { border: none; border-radius: 8px; padding: 12px 24px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease-in-out; }
+.log-button, #add-and-preset-btn, #add-to-meal-btn, .meal-preset-btn, #add-custom-meal-btn, #save-food-btn, #save-goals-btn {
+    background-color: var(--accent-blue);
+    color: var(--text-light);
+}
+.next-day-button, #complete-day-btn { background-color: #777; color: var(--text-light); }
+.skip-button { background-color: var(--accent-red); color: var(--text-light); }
+.log-button:hover, .meal-preset-btn:hover, .next-day-button:hover, .skip-button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.log-button:disabled, .next-day-button:disabled { background-color: var(--bg-light-1); color: #777; cursor: not-allowed; transform: none; filter: none; }
+.logout-button { background-color: #777; color: var(--text-light); border: none; border-radius: 5px; padding: 8px 16px; font-size: 14px; cursor: pointer; transition: background-color 0.2s; }
+.logout-button:hover { background-color: #999; }
+.completion-status { color: var(--accent-blue); font-weight: 600; margin-left: 15px; }
+
+/* Login Page Styles */
+.login-card { max-width: 400px; margin: 50px auto; text-align: center; }
+#username-input, #custom-meal-name-input { width: 80%; padding: 10px; margin: 20px 0; background-color: var(--bg-light-1); border: 1px solid #777; border-radius: 4px; color: var(--text-light); font-size: 16px; }
+.error-text { color: var(--accent-red); margin-top: 15px; min-height: 20px; }
+
+/* Food Log Styles */
+.daily-totals { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+.total-item { background-color: var(--bg-light-1); padding: 10px; border-radius: 5px; }
+.progress-bar { background-color: #555; border-radius: 5px; height: 10px; margin: 5px 0; overflow: hidden; }
+.progress { background-color: var(--accent-blue); height: 100%; width: 0%; border-radius: 5px; transition: width 0.3s ease; }
+#protein-progress { background-color: var(--accent-red); }
+#carbs-progress { background-color: var(--accent-purple); }
+#fat-progress { background-color: var(--accent-orange); }
+#meals-container { margin: 20px 0; }
+.meal-card { background-color: var(--bg-light-1); border-radius: 5px; padding: 15px; margin-bottom: 15px; }
+/* UPDATED: Meal Header Style */
+.meal-header {
+    display: flex;
+    justify-content: space-between; /* This separates the name from the buttons */
+    align-items: center;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.meal-header h3 { margin: 0; }
+.food-list { list-style: none; padding-left: 0; }
+.food-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background-color: var(--bg-dark-2);
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+.food-name { flex-grow: 1; margin: 0 10px; }
+.info-btn {
+    background: none; border: none; color: var(--text-muted);
+    font-size: 20px;
+    font-weight: bold; cursor: pointer; line-height: 1; padding: 0 5px;
+    transition: color 0.2s;
+}
+.info-btn:hover { color: var(--accent-blue); }
+.goals-form { display: grid; grid-template-columns: auto 1fr; gap: 15px; align-items: center; margin-top: 20px; }
+.goals-form label { font-weight: 600; text-align: right; }
+.goals-form input { width: 95%; padding: 10px; background-color: var(--bg-light-1); border: 1px solid #777; border-radius: 4px; color: var(--text-light); font-size: 16px; }
+.goals-form button { grid-column: 1 / -1; margin-top: 10px; }
+/* UPDATED: Styles for the button containers */
+.meal-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.food-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Modal Styles */
+.modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
+.modal-content { background-color: var(--bg-dark-2); margin: 15% auto; padding: 25px; border: 1px solid var(--bg-light-1); width: 80%; max-width: 500px; border-radius: 12px; position: relative; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--bg-light-1); }
+.modal-header h2 { margin: 0; }
+/* UPDATED: Unified style for ALL 'x' buttons */
+.close-button,
+.delete-btn {
+    color: var(--text-muted);
+    font-size: 28px;
+    font-weight: bold;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.close-button:hover,
+.close-button:focus {
+    color: var(--text-light);
+}
+.delete-btn:hover {
+    color: var(--accent-red);
+}
+.modal-overlay.visible { display: flex; justify-content: center; align-items: center; }
+.modal-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
+.food-form { display: grid; gap: 10px; margin-top: 20px; }
+.food-form label { text-align: left; font-size: 0.9em; color: var(--text-muted); }
+.food-form input, .food-form select { width: 95%; padding: 10px; background-color: var(--bg-light-1); border: 1px solid #777; border-radius: 4px; color: var(--text-light); font-size: 16px; }
+.modal-action-buttons { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; }
+.modal-action-buttons button { flex-grow: 1; }
+#alert-modal-message { margin: 20px 0; line-height: 1.5; white-space: pre-wrap; }
+#ok-alert-modal-btn { display: block; margin: 0 auto; }
+.schedule-form { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+.day-toggle { display: flex; justify-content: space-between; align-items: center; background-color: var(--bg-light-1); padding: 10px 15px; border-radius: 5px; }
+.day-toggle label { font-weight: 600; }
+.day-toggle input[type="checkbox"] { width: 20px; height: 20px; }
+.schedule-form button { margin-top: 10px; }
+
+/* Styles for Workout Log */
+#workout-log-container {
+    margin-bottom: 20px;
+}
+.exercise-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.exercise-form input {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: var(--bg-light-1);
+    border: 1px solid #777;
+    border-radius: 4px;
+    color: var(--text-light);
+    font-size: 16px;
+}
+#preset-exercises-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.preset-exercise-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-light-1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* --- Color & Font Variables --- */
+:root {
+    --bg-dark-1: #1a1a1d;
+    --bg-dark-2: #2c2c2f;
+    --bg-light-1: #3b3b3e;
+    --text-light: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --accent-blue: #4a90e2;
+    --accent-orange: #f5a623;
+    --accent-red: #d0021b;
+    --accent-purple: #8e44ad;
+    --font-primary: 'Poppins', sans-serif;
+}
+
+/* General Body Styles */
+body {
+    background-color: var(--bg-dark-1);
+    background-image: linear-gradient(180deg, var(--bg-dark-2) 0%, var(--bg-dark-1) 100%);
+    color: var(--text-light);
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+.container { max-width: 900px; margin: 0 auto; }
+header {
+    text-align: center; margin-bottom: 30px; color: var(--accent-blue);
+    display: flex; justify-content: space-between; align-items: center;
+}
+header h1 { font-weight: 600; }
+.card {
+    background-color: var(--bg-dark-2);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid var(--bg-light-1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); }
+.card h2 { margin-top: 0; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-weight: 600; }
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent-blue);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.card-header h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+/* Styles for Card Toggling */
+.card-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.toggle-card-btn {
+    background: none;
+    border: 2px solid var(--text-muted);
+    color: var(--text-muted);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.toggle-card-btn:hover {
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+.card-content.collapsed {
+    display: none;
+}
+.toggle-card-btn.collapsed {
+    transform: rotate(180deg);
+}
+
+
+/* Consistency Tracker Styles */
+.consistency-card { text-align: center; }
+.counters-container { display: flex; justify-content: space-around; margin: 20px 0; }
+/* ... (rest of CSS is the same) ... */
+
+/* Styles for Workout Template Editor */
+.workout-week-view {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+.day-template-btn {
+    padding: 10px 15px;
+    font-weight: 600;
+    border: 2px solid var(--bg-light-1);
+    background-color: var(--bg-dark-2);
+    color: var(--text-muted);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.day-template-btn.workout-day {
+    border-color: var(--accent-blue);
+    color: var(--text-light);
+}
+.day-template-btn:hover {
+    transform: translateY(-2px);
+}
+#day-template-exercises-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.template-exercise-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-light-1);
+    padding: 10px;
+    border-radius: 5px;
+}
+.template-add-form {
+    display: flex;
+    gap: 10px;
+}
+.template-add-form select {
+    flex-grow: 1;
+    background-color: var(--bg-light-1);
+    color: var(--text-light);
+    border: 1px solid #777;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+/* --- Color & Font Variables --- */
+:root {
+    --bg-dark-1: #1a1a1d;
+    --bg-dark-2: #2c2c2f;
+    --bg-light-1: #3b3b3e;
+    --text-light: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --accent-blue: #4a90e2;
+    --accent-orange: #f5a623;
+    --accent-red: #d0021b;
+    --accent-purple: #8e44ad;
+    --font-primary: 'Poppins', sans-serif;
+}
+
+/* General Body Styles */
+body {
+    background-color: var(--bg-dark-1);
+    background-image: linear-gradient(180deg, var(--bg-dark-2) 0%, var(--bg-dark-1) 100%);
+    color: var(--text-light);
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+.container { max-width: 900px; margin: 0 auto; }
+header {
+    text-align: center; margin-bottom: 30px; color: var(--accent-blue);
+    display: flex; justify-content: space-between; align-items: center;
+}
+header h1 { font-weight: 600; }
+.card {
+    background-color: var(--bg-dark-2);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid var(--bg-light-1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); }
+.card h2 { margin-top: 0; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-weight: 600; }
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent-blue);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.card-header h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.card-header-controls { display: flex; align-items: center; gap: 15px; }
+.toggle-card-btn { background: none; border: 2px solid var(--text-muted); color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%; font-size: 16px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+.toggle-card-btn:hover { color: var(--text-light); border-color: var(--text-light); }
+.card-content.collapsed { display: none; }
+.toggle-card-btn.collapsed { transform: rotate(180deg); }
+
+/* ... (rest of CSS is the same) ... */
+
+/* Navigation Bar Styles */
+.main-nav {
+    background-color: var(--bg-dark-2);
+    border-radius: 12px;
+    padding: 15px 25px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--bg-light-1);
+}
+.nav-title {
+    font-weight: 600;
+    font-size: 1.2em;
+    color: var(--text-light);
+}
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active {
+    color: var(--accent-blue);
+}
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}

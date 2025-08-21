@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consistency - Tracker App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header id="nav-placeholder"></header>
+
+    <main class="container">
+        <section class="card consistency-card" id="consistency-card">
+            <div class="card-header">
+                <h2>Consistency Tracker</h2>
+                <div class="card-header-controls">
+                    <button id="edit-schedule-btn" class="log-button diet">Edit Schedule</button>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="schedule-visualizer">
+                    <div class="day-indicator">M</div><div class="day-indicator">T</div><div class="day-indicator">W</div><div class="day-indicator">T</div><div class="day-indicator">F</div><div class="day-indicator">S</div><div class="day-indicator">S</div>
+                </div>
+                <div class="counters-container">
+                    <div class="consistency-counter"><span id="gym-streak-display" class="counter-number">0</span><span class="counter-label">Gym Streak</span></div>
+                    <div class="consistency-counter"><span id="diet-counter-display" class="counter-number">0</span><span class="counter-label">Diet Days</span></div>
+                </div>
+                <div class="button-group">
+                    <button id="log-gym-btn" class="log-button gym">Log Gym</button>
+                    <button id="log-diet-btn" class="log-button diet">Log Diet</button>
+                    <button id="complete-day-btn" class="next-day-button">Complete Day</button>
+                    <span id="completion-status" class="completion-status"></span>
+                </div>
+                <p class="motivation-quote">"Discipline is the bridge between goals and accomplishment."</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="alert-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="alert-modal-title">Notification</h2><button id="close-alert-modal-btn" class="close-button">&times;</button></div>
+            <p id="alert-modal-message"></p>
+            <button id="ok-alert-modal-btn" class="log-button">OK</button>
+        </div>
+    </div>
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="confirm-modal-title">Are you sure?</h2></div>
+            <p id="confirm-modal-message"></p>
+            <div class="modal-action-buttons"><button id="confirm-yes-btn" class="log-button gym">Yes</button><button id="confirm-no-btn" class="skip-button">No</button></div>
+        </div>
+    </div>
+    <div id="edit-schedule-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Set Workout Schedule</h2><button id="close-schedule-modal-btn" class="close-button">&times;</button></div>
+            <div class="schedule-form">
+                <div class="day-toggle"><label for="mon-check">Monday</label><input type="checkbox" id="mon-check" data-day-index="0"></div>
+                <div class="day-toggle"><label for="tue-check">Tuesday</label><input type="checkbox" id="tue-check" data-day-index="1"></div>
+                <div class="day-toggle"><label for="wed-check">Wednesday</label><input type="checkbox" id="wed-check" data-day-index="2"></div>
+                <div class="day-toggle"><label for="thu-check">Thursday</label><input type="checkbox" id="thu-check" data-day-index="3"></div>
+                <div class="day-toggle"><label for="fri-check">Friday</label><input type="checkbox" id="fri-check" data-day-index="4"></div>
+                <div class="day-toggle"><label for="sat-check">Saturday</label><input type="checkbox" id="sat-check" data-day-index="5"></div>
+                <div class="day-toggle"><label for="sun-check">Sunday</label><input type="checkbox" id="sun-check" data-day-index="6"></div>
+                <button id="save-schedule-btn" class="log-button">Save Schedule</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/consistency.js"></script>
+</body>
+</html>

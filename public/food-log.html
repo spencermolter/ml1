@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Log - Tracker App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header id="nav-placeholder"></header>
+
+    <main class="container">
+        <section class="card" id="food-log-card">
+            <div class="card-header">
+                <h2>Daily Food Log</h2>
+                <div class="card-header-controls">
+                    <button id="edit-goals-btn" class="log-button diet">Edit Goals</button>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="daily-totals">
+                    <div class="total-item"><label>Calories</label><div class="progress-bar"><div id="calories-progress" class="progress"></div></div><span id="calories-total">0 / 2500</span></div>
+                    <div class="total-item"><label>Protein</label><div class="progress-bar"><div id="protein-progress" class="progress"></div></div><span id="protein-total">0g / 180g</span></div>
+                    <div class="total-item"><label>Carbs</label><div class="progress-bar"><div id="carbs-progress" class="progress"></div></div><span id="carbs-total">0g / 300g</span></div>
+                    <div class="total-item"><label>Fat</label><div class="progress-bar"><div id="fat-progress" class="progress"></div></div><span id="fat-total">0g / 70g</span></div>
+                </div>
+                <div id="meals-container"></div>
+                <button id="add-meal-btn" class="log-button">Add Meal</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="add-meal-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Add a Meal</h2><button id="close-meal-modal-btn" class="close-button">&times;</button></div>
+            <h4>Quick Add</h4>
+            <div class="modal-buttons"><button class="meal-preset-btn">Breakfast</button><button class="meal-preset-btn">Lunch</button><button class="meal-preset-btn">Dinner</button></div>
+            <hr>
+            <h4>Custom Meal</h4>
+            <input type="text" id="custom-meal-name-input" placeholder="e.g., Post-Workout Shake"><button id="add-custom-meal-btn" class="log-button">Add Custom Meal</button>
+        </div>
+    </div>
+    <div id="add-food-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="modal-title">Add Food to Meal</h2><button id="close-food-modal-btn" class="close-button">&times;</button></div>
+            <div class="food-form">
+                <label for="preset-food-select">Select a Preset Food:</label>
+                <select id="preset-food-select"></select>
+                <hr>
+                <label>Or Enter a Custom Food:</label>
+                <input type="text" id="food-name-input" placeholder="Food Name"><input type="number" id="calories-input" placeholder="Calories"><input type="number" id="protein-input" placeholder="Protein (g)"><input type="number" id="carbs-input" placeholder="Carbs (g)"><input type="number" id="fat-input" placeholder="Fat (g)">
+                <div class="modal-action-buttons"><button id="add-to-meal-btn" class="log-button diet">Add to Meal</button><button id="add-and-preset-btn" class="log-button gym">Add & Save as Preset</button></div>
+            </div>
+        </div>
+    </div>
+    <div id="edit-goals-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Edit Daily Goals</h2><button id="close-goals-modal-btn" class="close-button">&times;</button></div>
+            <div class="goals-form">
+                <label>Calories:</label><input type="number" id="edit-calories-input">
+                <label>Protein (g):</label><input type="number" id="edit-protein-input">
+                <label>Carbs (g):</label><input type="number" id="edit-carbs-input">
+                <label>Fat (g):</label><input type="number" id="edit-fat-input">
+                <button id="save-goals-btn" class="log-button">Save Goals</button>
+            </div>
+        </div>
+    </div>
+    <div id="alert-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="alert-modal-title">Notification</h2><button id="close-alert-modal-btn" class="close-button">&times;</button></div>
+            <p id="alert-modal-message"></p>
+            <button id="ok-alert-modal-btn" class="log-button">OK</button>
+        </div>
+    </div>
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="confirm-modal-title">Are you sure?</h2></div>
+            <p id="confirm-modal-message"></p>
+            <div class="modal-action-buttons"><button id="confirm-yes-btn" class="log-button gym">Yes</button><button id="confirm-no-btn" class="skip-button">No</button></div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/food-log.js"></script>
+</body>
+</html>

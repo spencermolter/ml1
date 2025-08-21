@@ -1,0 +1,107 @@
+{
+  "users": [
+    {
+      "username": "jason",
+      "trackerData": {
+        "gymStreak": 1,
+        "dietCount": 1,
+        "goals": {
+          "calories": 2500,
+          "protein": 180,
+          "carbs": 300,
+          "fat": 70
+        },
+        "presetFoods": [
+          {
+            "name": "Whey Protein",
+            "calories": 120,
+            "protein": 25,
+            "carbs": 3,
+            "fat": 1
+          },
+          {
+            "name": "Whey Protein",
+            "calories": 120,
+            "protein": 25,
+            "carbs": 3,
+            "fat": 1
+          }
+        ],
+        "foodLog": {
+          "2025-08-20": [
+            {
+              "mealName": "Breakfast",
+              "foods": []
+            }
+          ]
+        },
+        "lastCompletionDate": null,
+        "workoutSchedule": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true,
+          false
+        ],
+        "presetExercises": [
+          {
+            "id": 2,
+            "name": "Squat"
+          },
+          {
+            "id": 3,
+            "name": "Overhead Press"
+          }
+        ],
+        "workoutLog": {},
+        "workoutTemplates": {
+          "0": [],
+          "1": [],
+          "2": [],
+          "3": [],
+          "4": [],
+          "5": [],
+          "6": []
+        }
+      }
+    },
+    {
+      "username": "brother",
+      "trackerData": {
+        "gymStreak": 0,
+        "dietCount": 0,
+        "goals": {
+          "calories": 2800,
+          "protein": 200,
+          "carbs": 350,
+          "fat": 80
+        },
+        "presetFoods": [],
+        "foodLog": {},
+        "lastCompletionDate": null,
+        "workoutSchedule": [
+          false,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ],
+        "presetExercises": [],
+        "workoutLog": {},
+        "workoutTemplates": {
+          "0": [],
+          "1": [],
+          "2": [],
+          "3": [],
+          "4": [],
+          "5": [],
+          "6": []
+        }
+      }
+    }
+  ]
+}
