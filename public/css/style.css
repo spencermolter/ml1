@@ -92,10 +92,10 @@ header h1 { font-weight: 600; }
 #fat-progress { background-color: var(--accent-orange); }
 #meals-container { margin: 20px 0; }
 .meal-card { background-color: var(--bg-light-1); border-radius: 5px; padding: 15px; margin-bottom: 15px; }
-/* UPDATED: Meal Header Style */
+
 .meal-header {
     display: flex;
-    justify-content: space-between; /* This separates the name from the buttons */
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #555;
     padding-bottom: 10px;
@@ -124,7 +124,7 @@ header h1 { font-weight: 600; }
 .goals-form label { font-weight: 600; text-align: right; }
 .goals-form input { width: 95%; padding: 10px; background-color: var(--bg-light-1); border: 1px solid #777; border-radius: 4px; color: var(--text-light); font-size: 16px; }
 .goals-form button { grid-column: 1 / -1; margin-top: 10px; }
-/* UPDATED: Styles for the button containers */
+
 .meal-header-actions {
     display: flex;
     align-items: center;
@@ -141,7 +141,7 @@ header h1 { font-weight: 600; }
 .modal-content { background-color: var(--bg-dark-2); margin: 15% auto; padding: 25px; border: 1px solid var(--bg-light-1); width: 80%; max-width: 500px; border-radius: 12px; position: relative; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--bg-light-1); }
 .modal-header h2 { margin: 0; }
-/* UPDATED: Unified style for ALL 'x' buttons */
+
 .close-button,
 .delete-btn {
     color: var(--text-muted);
@@ -208,56 +208,6 @@ header h1 { font-weight: 600; }
     border-radius: 5px;
 }
 
-/* --- Color & Font Variables --- */
-:root {
-    --bg-dark-1: #1a1a1d;
-    --bg-dark-2: #2c2c2f;
-    --bg-light-1: #3b3b3e;
-    --text-light: #f0f0f0;
-    --text-muted: #a0a0a0;
-    --accent-blue: #4a90e2;
-    --accent-orange: #f5a623;
-    --accent-red: #d0021b;
-    --accent-purple: #8e44ad;
-    --font-primary: 'Poppins', sans-serif;
-}
-
-/* General Body Styles */
-body {
-    background-color: var(--bg-dark-1);
-    background-image: linear-gradient(180deg, var(--bg-dark-2) 0%, var(--bg-dark-1) 100%);
-    color: var(--text-light);
-    font-family: var(--font-primary);
-    margin: 0;
-    padding: 20px;
-    min-height: 100vh;
-}
-.container { max-width: 900px; margin: 0 auto; }
-header {
-    text-align: center; margin-bottom: 30px; color: var(--accent-blue);
-    display: flex; justify-content: space-between; align-items: center;
-}
-header h1 { font-weight: 600; }
-.card {
-    background-color: var(--bg-dark-2);
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 25px;
-    border: 1px solid var(--bg-light-1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-.card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); }
-.card h2 { margin-top: 0; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-weight: 600; }
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--accent-blue);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-.card-header h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
-
 /* Styles for Card Toggling */
 .card-header-controls {
     display: flex;
@@ -289,11 +239,6 @@ header h1 { font-weight: 600; }
     transform: rotate(180deg);
 }
 
-
-/* Consistency Tracker Styles */
-.consistency-card { text-align: center; }
-.counters-container { display: flex; justify-content: space-around; margin: 20px 0; }
-/* ... (rest of CSS is the same) ... */
 
 /* Styles for Workout Template Editor */
 .workout-week-view {
@@ -348,63 +293,6 @@ header h1 { font-weight: 600; }
     border-radius: 4px;
     padding: 10px;
 }
-
-/* --- Color & Font Variables --- */
-:root {
-    --bg-dark-1: #1a1a1d;
-    --bg-dark-2: #2c2c2f;
-    --bg-light-1: #3b3b3e;
-    --text-light: #f0f0f0;
-    --text-muted: #a0a0a0;
-    --accent-blue: #4a90e2;
-    --accent-orange: #f5a623;
-    --accent-red: #d0021b;
-    --accent-purple: #8e44ad;
-    --font-primary: 'Poppins', sans-serif;
-}
-
-/* General Body Styles */
-body {
-    background-color: var(--bg-dark-1);
-    background-image: linear-gradient(180deg, var(--bg-dark-2) 0%, var(--bg-dark-1) 100%);
-    color: var(--text-light);
-    font-family: var(--font-primary);
-    margin: 0;
-    padding: 20px;
-    min-height: 100vh;
-}
-.container { max-width: 900px; margin: 0 auto; }
-header {
-    text-align: center; margin-bottom: 30px; color: var(--accent-blue);
-    display: flex; justify-content: space-between; align-items: center;
-}
-header h1 { font-weight: 600; }
-.card {
-    background-color: var(--bg-dark-2);
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 25px;
-    border: 1px solid var(--bg-light-1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-.card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); }
-.card h2 { margin-top: 0; border-bottom: 2px solid var(--accent-blue); padding-bottom: 10px; font-weight: 600; }
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--accent-blue);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-.card-header h2 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
-.card-header-controls { display: flex; align-items: center; gap: 15px; }
-.toggle-card-btn { background: none; border: 2px solid var(--text-muted); color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%; font-size: 16px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-.toggle-card-btn:hover { color: var(--text-light); border-color: var(--text-light); }
-.card-content.collapsed { display: none; }
-.toggle-card-btn.collapsed { transform: rotate(180deg); }
-
-/* ... (rest of CSS is the same) ... */
 
 /* Navigation Bar Styles */
 .main-nav {

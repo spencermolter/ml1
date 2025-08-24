@@ -33,6 +33,12 @@
               "mealName": "Breakfast",
               "foods": []
             }
+          ],
+          "2025-08-21": [
+            {
+              "mealName": "Breakfast",
+              "foods": []
+            }
           ]
         },
         "lastCompletionDate": null,

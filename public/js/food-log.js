@@ -95,9 +95,20 @@ document.addEventListener("DOMContentLoaded", () => {
       mealCard.className = "meal-card"
       let foodItemsHTML = ""
       meal.foods.forEach((food, foodIndex) => {
-        foodItemsHTML += `<li class="food-item"><span>${food.name}</span><div class="food-item-actions"><button class="info-btn" data-meal-index="${mealIndex}" data-food-index="${foodIndex}">ⓘ</button><button class="delete-btn delete-food-btn" data-meal-index="${mealIndex}" data-food-index="${foodIndex}">&times;</button></div></li>`
+        foodItemsHTML += `<li class="food-item">
+                    <button class="info-btn" data-meal-index="${mealIndex}" data-food-index="${foodIndex}">ⓘ</button>
+                    <span class="food-name">${food.name}</span>
+                    <button class="delete-btn delete-food-btn" data-meal-index="${mealIndex}" data-food-index="${foodIndex}">&times;</button>
+                </li>`
       })
-      mealCard.innerHTML = `<div class="meal-header"><div class="meal-header-actions"><h3>${meal.mealName}</h3><button class="log-button add-food-btn" data-meal-index="${mealIndex}">Add Food</button></div><button class="delete-btn delete-meal-btn" data-meal-index="${mealIndex}">&times;</button></div><ul class="food-list">${foodItemsHTML}</ul>`
+      mealCard.innerHTML = `<div class="meal-header">
+                <div class="meal-header-actions">
+                    <h3>${meal.mealName}</h3>
+                    <button class="log-button add-food-btn" data-meal-index="${mealIndex}">Add Food</button>
+                </div>
+                <button class="delete-btn delete-meal-btn" data-meal-index="${mealIndex}">&times;</button>
+            </div>
+            <ul class="food-list">${foodItemsHTML}</ul>`
       mealsContainer.appendChild(mealCard)
     })
     calculateTotals()
