@@ -83,7 +83,7 @@ export async function loadNavbar(loggedInUser) {
       document
         .getElementById("logout-btn")
         .addEventListener("click", () => logout(loggedInUser))
-      document.getElementById("nav-username").textContent = loggedInUser
+      document.getElementById("username-display").textContent = loggedInUser
 
       // Make the current page's link active
       const currentPage = window.location.pathname

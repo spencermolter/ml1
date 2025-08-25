@@ -39,7 +39,8 @@
               "mealName": "Breakfast",
               "foods": []
             }
-          ]
+          ],
+          "2025-08-24": []
         },
         "lastCompletionDate": null,
         "workoutSchedule": [
@@ -69,7 +70,8 @@
           "3": [],
           "4": [],
           "5": [],
-          "6": []
+          "6": [],
+          "Monday": []
         }
       }
     },

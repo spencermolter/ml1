@@ -64,14 +64,15 @@ header h1 { font-weight: 600; }
 
 /* Button Styles */
 .button-group { display: flex; justify-content: center; align-items: center; gap: 15px; }
-.log-button, .next-day-button, .skip-button, .meal-preset-btn { border: none; border-radius: 8px; padding: 12px 24px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease-in-out; }
+.log-button, .next-day-button, .skip-button, .meal-preset-btn, .edit-btn { border: none; border-radius: 8px; padding: 12px 24px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease-in-out; }
 .log-button, #add-and-preset-btn, #add-to-meal-btn, .meal-preset-btn, #add-custom-meal-btn, #save-food-btn, #save-goals-btn {
     background-color: var(--accent-blue);
     color: var(--text-light);
 }
 .next-day-button, #complete-day-btn { background-color: #777; color: var(--text-light); }
 .skip-button { background-color: var(--accent-red); color: var(--text-light); }
-.log-button:hover, .meal-preset-btn:hover, .next-day-button:hover, .skip-button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.edit-btn { background-color: var(--accent-orange); color: var(--text-light); padding: 5px 10px; font-size: 14px; }
+.log-button:hover, .meal-preset-btn:hover, .next-day-button:hover, .skip-button:hover, .edit-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 .log-button:disabled, .next-day-button:disabled { background-color: var(--bg-light-1); color: #777; cursor: not-allowed; transform: none; filter: none; }
 .logout-button { background-color: #777; color: var(--text-light); border: none; border-radius: 5px; padding: 8px 16px; font-size: 14px; cursor: pointer; transition: background-color 0.2s; }
 .logout-button:hover { background-color: #999; }
@@ -139,6 +140,7 @@ header h1 { font-weight: 600; }
 /* Modal Styles */
 .modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
 .modal-content { background-color: var(--bg-dark-2); margin: 15% auto; padding: 25px; border: 1px solid var(--bg-light-1); width: 80%; max-width: 500px; border-radius: 12px; position: relative; }
+.modal-content.large { max-width: 800px; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--bg-light-1); }
 .modal-header h2 { margin: 0; }
 
@@ -281,17 +283,51 @@ header h1 { font-weight: 600; }
     padding: 10px;
     border-radius: 5px;
 }
+.template-exercise-item .exercise-name {
+    flex-grow: 1;
+    font-weight: 600;
+}
+.template-exercise-item .exercise-details {
+    color: var(--text-muted);
+    margin: 0 15px;
+}
+.template-exercise-item .exercise-actions {
+    display: flex;
+    gap: 10px;
+}
 .template-add-form {
     display: flex;
     gap: 10px;
 }
-.template-add-form select {
+.template-add-form select, .template-add-form input {
     flex-grow: 1;
     background-color: var(--bg-light-1);
     color: var(--text-light);
     border: 1px solid #777;
     border-radius: 4px;
     padding: 10px;
+}
+.edit-exercise-form {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 15px;
+    align-items: center;
+    margin-top: 15px;
+}
+.edit-exercise-form label {
+    font-weight: 600;
+}
+.edit-exercise-form input {
+    width: 95%;
+    padding: 10px;
+    background-color: var(--bg-light-1);
+    border: 1px solid #777;
+    border-radius: 4px;
+    color: var(--text-light);
+    font-size: 16px;
+}
+.edit-exercise-form button {
+    grid-column: 1 / -1;
 }
 
 /* Navigation Bar Styles */

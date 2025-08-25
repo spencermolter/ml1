@@ -9,15 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const completeDayBtn = document.getElementById("complete-day-btn")
   const completionStatus = document.getElementById("completion-status")
   const dayIndicators = document.querySelectorAll(".day-indicator")
-  const editScheduleBtn = document.getElementById("edit-schedule-btn")
-  const editScheduleModal = document.getElementById("edit-schedule-modal")
-  const closeScheduleModalBtn = document.getElementById(
-    "close-schedule-modal-btn"
-  )
-  const saveScheduleBtn = document.getElementById("save-schedule-btn")
-  const scheduleCheckboxes = document.querySelectorAll(
-    '.schedule-form input[type="checkbox"]'
-  )
 
   // --- STATE ---
   let loggedInUser = null
@@ -50,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateButtonStates()
   }
 
-  // UPDATED: Now uses the shared calculateTotals function
   function updateButtonStates() {
     const dayIsComplete = appState.lastCompletionDate === Utils.getTodayString()
     const today = new Date()
@@ -58,11 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const isWorkoutDay =
       appState.workoutSchedule && appState.workoutSchedule[dayOfWeek]
 
-    // Use the utility function to get current food totals
     const totals = Utils.calculateTotals(appState)
     const goals = appState.goals || {}
 
-    // Check goals
     const checkCaloriesGoal = (total, goal) => {
       if (goal <= 0) return false
       const lowerBound = goal * 0.95
@@ -88,26 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
     completionStatus.textContent = dayIsComplete ? "✅ Day Complete" : ""
   }
 
-  // --- (The rest of the functions are unchanged) ---
-  function logGym() {
-    /* ... */
-  }
-  function logDiet() {
-    /* ... */
-  }
-  async function completeDay() {
-    /* ... */
-  }
-  function openEditScheduleModal() {
-    /* ... */
-  }
-  function closeEditScheduleModal() {
-    /* ... */
-  }
-
-  // (Pasting the full, correct file below for certainty)
-
-  // --- FULL consistency.js ---
   function logGym() {
     appState.gymStreak++
     gymLoggedToday = true
@@ -146,32 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
     updateUI()
     Utils.saveData(loggedInUser, appState)
   }
-  function openEditScheduleModal() {
-    if (appState.workoutSchedule) {
-      scheduleCheckboxes.forEach((checkbox, index) => {
-        checkbox.checked = appState.workoutSchedule[index]
-      })
-    }
-    editScheduleModal.classList.add("visible")
-  }
-  function closeEditScheduleModal() {
-    editScheduleModal.classList.remove("visible")
-  }
+
   logGymButton.addEventListener("click", logGym)
   logDietButton.addEventListener("click", logDiet)
   completeDayBtn.addEventListener("click", completeDay)
-  editScheduleBtn.addEventListener("click", openEditScheduleModal)
-  closeScheduleModalBtn.addEventListener("click", closeEditScheduleModal)
-  saveScheduleBtn.addEventListener("click", () => {
-    const newSchedule = []
-    scheduleCheckboxes.forEach((checkbox) => {
-      newSchedule.push(checkbox.checked)
-    })
-    appState.workoutSchedule = newSchedule
-    Utils.saveData(loggedInUser, appState)
-    updateUI()
-    closeEditScheduleModal()
-  })
+
   document
     .getElementById("ok-alert-modal-btn")
     .addEventListener("click", () =>
@@ -182,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", () =>
       document.getElementById("alert-modal").classList.remove("visible")
     )
+
   async function initializeApp() {
     loggedInUser = localStorage.getItem("loggedInUser")
     if (!loggedInUser) {

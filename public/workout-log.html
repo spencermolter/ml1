@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Log - Fitness Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header id="nav-placeholder"></header>
+
+    <main class="container">
+        <section class="card">
+            <div class="card-header">
+                <h2>Workout Templates</h2>
+                <div class="card-header-controls">
+                    <button id="edit-schedule-btn" class="log-button">Edit Schedule</button>
+                </div>
+            </div>
+            <div class="card-content" id="workout-templates-container">
+                </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2>Log Today's Workout</h2>
+            </div>
+            <div class="card-content" id="daily-workout-container">
+                <p>Select a template to begin logging today's workout.</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="alert-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="alert-modal-title">Notification</h2><button id="close-alert-modal-btn" class="close-button">&times;</button></div>
+            <p id="alert-modal-message"></p>
+            <button id="ok-alert-modal-btn" class="log-button">OK</button>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="confirm-modal-title">Are you sure?</h2></div>
+            <p id="confirm-modal-message"></p>
+            <div class="modal-action-buttons"><button id="confirm-yes-btn" class="log-button gym">Yes</button><button id="confirm-no-btn" class="skip-button">No</button></div>
+        </div>
+    </div>
+
+    <div id="edit-schedule-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Set Workout Schedule</h2><button id="close-schedule-modal-btn" class="close-button">&times;</button></div>
+            <div class="schedule-form">
+                <div class="day-toggle"><label for="mon-check">Monday</label><input type="checkbox" id="mon-check" data-day-index="0"></div>
+                <div class="day-toggle"><label for="tue-check">Tuesday</label><input type="checkbox" id="tue-check" data-day-index="1"></div>
+                <div class="day-toggle"><label for="wed-check">Wednesday</label><input type="checkbox" id="wed-check" data-day-index="2"></div>
+                <div class="day-toggle"><label for="thu-check">Thursday</label><input type="checkbox" id="thu-check" data-day-index="3"></div>
+                <div class="day-toggle"><label for="fri-check">Friday</label><input type="checkbox" id="fri-check" data-day-index="4"></div>
+                <div class="day-toggle"><label for="sat-check">Saturday</label><input type="checkbox" id="sat-check" data-day-index="5"></div>
+                <div class="day-toggle"><label for="sun-check">Sunday</label><input type="checkbox" id="sun-check" data-day-index="6"></div>
+                <button id="save-schedule-btn" class="log-button">Save Schedule</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="template-editor-modal" class="modal-overlay">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="template-editor-title">Edit Template</h2>
+                <button id="close-template-editor-btn" class="close-button">&times;</button>
+            </div>
+            <div id="template-editor-content">
+                <div id="day-template-exercises-list"></div>
+                <div class="template-add-form">
+                    <input type="text" id="add-exercise-name-input" placeholder="e.g., Bench Press" class="template-exercise-input">
+                    <button id="add-exercise-to-template-btn" class="log-button">Add Exercise</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-exercise-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="edit-exercise-title">Edit Exercise</h2>
+                <button id="close-edit-exercise-btn" class="close-button">&times;</button>
+            </div>
+            <div class="edit-exercise-form">
+                <label for="edit-sets-input">Sets:</label>
+                <input type="number" id="edit-sets-input">
+                <label for="edit-reps-input">Reps:</label>
+                <input type="number" id="edit-reps-input">
+                <button id="save-exercise-changes-btn" class="log-button">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/workout-log.js"></script>
+</body>
+</html>
