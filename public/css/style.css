@@ -272,7 +272,7 @@ header h1 { font-weight: 600; }
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
 }
 .template-exercise-item {
@@ -291,13 +291,31 @@ header h1 { font-weight: 600; }
     color: var(--text-muted);
     margin: 0 15px;
 }
+.template-exercise-item .exercise-details.prompt {
+    font-style: italic;
+}
 .template-exercise-item .exercise-actions {
     display: flex;
     gap: 10px;
 }
+.template-break-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--accent-orange);
+    font-style: italic;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--bg-dark-1);
+}
+.template-break-item span {
+    flex-grow: 1;
+}
 .template-add-form {
     display: flex;
     gap: 10px;
+    margin-top: 10px;
 }
 .template-add-form select, .template-add-form input {
     flex-grow: 1;

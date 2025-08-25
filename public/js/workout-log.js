@@ -27,12 +27,18 @@ const exerciseListContainer = document.getElementById(
 )
 const addExerciseInput = document.getElementById("add-exercise-name-input")
 const addExerciseBtn = document.getElementById("add-exercise-to-template-btn")
+const addBreakDurationInput = document.getElementById(
+  "add-break-duration-input"
+)
+const addBreakBtn = document.getElementById("add-break-btn")
 
 const editExerciseModal = document.getElementById("edit-exercise-modal")
 const editExerciseTitle = document.getElementById("edit-exercise-title")
 const closeEditExerciseBtn = document.getElementById("close-edit-exercise-btn")
 const editSetsInput = document.getElementById("edit-sets-input")
 const editRepsInput = document.getElementById("edit-reps-input")
+const editWeightInput = document.getElementById("edit-weight-input")
+const editTimerInput = document.getElementById("edit-timer-input")
 const saveExerciseChangesBtn = document.getElementById(
   "save-exercise-changes-btn"
 )
@@ -63,34 +69,54 @@ function saveSchedule() {
   closeEditScheduleModal()
 }
 
-function renderTemplateExercises() {
+function renderTemplateItems() {
   exerciseListContainer.innerHTML = ""
-  const exercises = appState.workoutTemplates[currentEditingDay] || []
+  const items = appState.workoutTemplates[currentEditingDay] || []
 
-  if (exercises.length === 0) {
-    exerciseListContainer.innerHTML = `<p>No exercises in this template yet. Add one below!</p>`
+  if (items.length === 0) {
+    exerciseListContainer.innerHTML = `<p>No items in this program yet. Add an exercise or break below!</p>`
     return
   }
 
-  exercises.forEach((exercise, index) => {
-    const item = document.createElement("div")
-    item.className = "template-exercise-item"
-    item.innerHTML = `
-            <span class="exercise-name">${exercise.name}</span>
-            <span class="exercise-details">${exercise.sets} sets of ${exercise.reps} reps</span>
-            <div class="exercise-actions">
-                <button class="edit-btn" data-index="${index}">Edit</button>
+  items.forEach((item, index) => {
+    const itemEl = document.createElement("div")
+    if (item.type === "exercise") {
+      itemEl.className = "template-exercise-item"
+
+      let detailsHtml
+      if (item.sets) {
+        const weightText =
+          typeof item.weight === "number" ? `${item.weight}lbs` : "no weight"
+        const timerText =
+          typeof item.timer === "number" ? `${item.timer}s rest` : "no rest"
+        detailsHtml = `<span class="exercise-details">${item.sets}x${item.reps} @ ${weightText}, ${timerText}</span>`
+      } else {
+        detailsHtml = `<span class="exercise-details prompt">Enter values →</span>`
+      }
+
+      itemEl.innerHTML = `
+                <span class="exercise-name">${item.name}</span>
+                ${detailsHtml}
+                <div class="exercise-actions">
+                    <button class="edit-btn" data-index="${index}">Edit</button>
+                    <button class="delete-btn" data-index="${index}">&times;</button>
+                </div>
+            `
+    } else if (item.type === "break") {
+      itemEl.className = "template-break-item"
+      itemEl.innerHTML = `
+                <span>--- ${item.duration} second rest ---</span>
                 <button class="delete-btn" data-index="${index}">&times;</button>
-            </div>
-        `
-    exerciseListContainer.appendChild(item)
+            `
+    }
+    exerciseListContainer.appendChild(itemEl)
   })
 }
 
 function openTemplateEditorModal(day) {
   currentEditingDay = day
-  templateEditorTitle.textContent = `Edit ${day} Template`
-  renderTemplateExercises()
+  templateEditorTitle.textContent = `Edit ${day} Program`
+  renderTemplateItems()
   templateEditorModal.classList.add("visible")
 }
 
@@ -105,28 +131,53 @@ function addExerciseToTemplate() {
     if (!appState.workoutTemplates[currentEditingDay]) {
       appState.workoutTemplates[currentEditingDay] = []
     }
-    const newExercise = { name: exerciseName, sets: 3, reps: 10 }
+    const newExercise = {
+      type: "exercise",
+      name: exerciseName,
+      sets: null,
+      reps: null,
+      weight: null,
+      timer: null,
+    }
     appState.workoutTemplates[currentEditingDay].push(newExercise)
     Utils.saveData(loggedInUser, appState)
-    renderTemplateExercises()
+    renderTemplateItems()
     addExerciseInput.value = ""
   }
 }
 
-function deleteExerciseFromTemplate(index) {
+function addBreakToTemplate() {
+  const duration = parseInt(addBreakDurationInput.value)
+  if (duration > 0 && currentEditingDay) {
+    if (!appState.workoutTemplates[currentEditingDay]) {
+      appState.workoutTemplates[currentEditingDay] = []
+    }
+    const newBreak = { type: "break", duration: duration }
+    appState.workoutTemplates[currentEditingDay].push(newBreak)
+    Utils.saveData(loggedInUser, appState)
+    renderTemplateItems()
+    addBreakDurationInput.value = ""
+  }
+}
+
+function deleteItemFromTemplate(index) {
   if (currentEditingDay) {
     appState.workoutTemplates[currentEditingDay].splice(index, 1)
     Utils.saveData(loggedInUser, appState)
-    renderTemplateExercises()
+    renderTemplateItems()
   }
 }
 
 function openEditExerciseModal(index) {
+  const item = appState.workoutTemplates[currentEditingDay][index]
+  if (item.type !== "exercise") return
+
   currentExerciseIndex = index
-  const exercise = appState.workoutTemplates[currentEditingDay][index]
-  editExerciseTitle.textContent = `Edit ${exercise.name}`
-  editSetsInput.value = exercise.sets
-  editRepsInput.value = exercise.reps
+  editExerciseTitle.textContent = `Edit ${item.name}`
+  editSetsInput.value = item.sets || ""
+  editRepsInput.value = item.reps || ""
+  editWeightInput.value = item.weight || ""
+  editTimerInput.value = item.timer || ""
   editExerciseModal.classList.add("visible")
 }
 
@@ -139,10 +190,12 @@ function saveExerciseChanges() {
   if (currentEditingDay && currentExerciseIndex !== null) {
     const exercise =
       appState.workoutTemplates[currentEditingDay][currentExerciseIndex]
-    exercise.sets = parseInt(editSetsInput.value) || exercise.sets
-    exercise.reps = parseInt(editRepsInput.value) || exercise.reps
+    exercise.sets = parseInt(editSetsInput.value) || null
+    exercise.reps = parseInt(editRepsInput.value) || null
+    exercise.weight = parseInt(editWeightInput.value) || null
+    exercise.timer = parseInt(editTimerInput.value) || null
     Utils.saveData(loggedInUser, appState)
-    renderTemplateExercises()
+    renderTemplateItems()
     closeEditExerciseModal()
   }
 }
@@ -224,11 +277,12 @@ saveScheduleBtn.addEventListener("click", saveSchedule)
 
 closeTemplateEditorBtn.addEventListener("click", closeTemplateEditorModal)
 addExerciseBtn.addEventListener("click", addExerciseToTemplate)
+addBreakBtn.addEventListener("click", addBreakToTemplate)
 
 exerciseListContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-btn")) {
     const index = e.target.dataset.index
-    deleteExerciseFromTemplate(index)
+    deleteItemFromTemplate(index)
   }
   if (e.target.classList.contains("edit-btn")) {
     const index = e.target.dataset.index

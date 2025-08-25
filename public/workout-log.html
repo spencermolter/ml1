@@ -15,7 +15,7 @@
     <main class="container">
         <section class="card">
             <div class="card-header">
-                <h2>Workout Templates</h2>
+                <h2>Workout Programs</h2>
                 <div class="card-header-controls">
                     <button id="edit-schedule-btn" class="log-button">Edit Schedule</button>
                 </div>
@@ -29,7 +29,7 @@
                 <h2>Log Today's Workout</h2>
             </div>
             <div class="card-content" id="daily-workout-container">
-                <p>Select a template to begin logging today's workout.</p>
+                <p>Select a program to begin logging today's workout.</p>
             </div>
         </section>
     </main>
@@ -69,7 +69,7 @@
     <div id="template-editor-modal" class="modal-overlay">
         <div class="modal-content large">
             <div class="modal-header">
-                <h2 id="template-editor-title">Edit Template</h2>
+                <h2 id="template-editor-title">Edit Program</h2>
                 <button id="close-template-editor-btn" class="close-button">&times;</button>
             </div>
             <div id="template-editor-content">
@@ -77,6 +77,10 @@
                 <div class="template-add-form">
                     <input type="text" id="add-exercise-name-input" placeholder="e.g., Bench Press" class="template-exercise-input">
                     <button id="add-exercise-to-template-btn" class="log-button">Add Exercise</button>
+                </div>
+                <div class="template-add-form">
+                    <input type="number" id="add-break-duration-input" placeholder="Rest time (sec)" class="template-exercise-input">
+                    <button id="add-break-btn" class="log-button">Add Break</button>
                 </div>
             </div>
         </div>
@@ -93,6 +97,10 @@
                 <input type="number" id="edit-sets-input">
                 <label for="edit-reps-input">Reps:</label>
                 <input type="number" id="edit-reps-input">
+                <label for="edit-weight-input">Weight (lbs):</label>
+                <input type="number" id="edit-weight-input">
+                <label for="edit-timer-input">Rest Per Set (sec):</label>
+                <input type="number" id="edit-timer-input">
                 <button id="save-exercise-changes-btn" class="log-button">Save Changes</button>
             </div>
         </div>

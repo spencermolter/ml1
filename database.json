@@ -71,7 +71,37 @@
           "4": [],
           "5": [],
           "6": [],
-          "Monday": []
+          "Monday": [
+            {
+              "name": "Bench",
+              "sets": 3,
+              "reps": 8,
+              "weight": 120,
+              "timer": 180,
+              "restAfter": 180
+            },
+            {
+              "type": "exercise",
+              "name": "Bench",
+              "sets": 3,
+              "reps": 10,
+              "weight": 120,
+              "timer": 180
+            },
+            {
+              "type": "break",
+              "duration": 180
+            },
+            {
+              "type": "exercise",
+              "name": "Curl",
+              "sets": 3,
+              "reps": 8,
+              "weight": 30,
+              "timer": 120
+            }
+          ],
+          "Sunday": []
         }
       }
     },
