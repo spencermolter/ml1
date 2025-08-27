@@ -55,20 +55,7 @@
               ]
             }
           ],
-          "2025-08-27": [
-            {
-              "mealName": "Breakfast",
-              "foods": [
-                {
-                  "name": "Whey Protein",
-                  "calories": 120,
-                  "protein": 25,
-                  "carbs": 3,
-                  "fat": 1
-                }
-              ]
-            }
-          ]
+          "2025-08-27": []
         },
         "lastCompletionDate": null,
         "workoutSchedule": [
