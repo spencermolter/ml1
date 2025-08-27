@@ -29,8 +29,7 @@
                 <h2>Log Today's Workout</h2>
             </div>
             <div class="card-content" id="daily-workout-container">
-                <p>Select a program to begin logging today's workout.</p>
-            </div>
+                </div>
         </section>
     </main>
 
@@ -74,6 +73,8 @@
             </div>
             <div id="template-editor-content">
                 <div id="day-template-exercises-list"></div>
+                <hr class="modal-divider">
+                <h4>Add to Program</h4>
                 <div class="template-add-form">
                     <input type="text" id="add-exercise-name-input" placeholder="e.g., Bench Press" class="template-exercise-input">
                     <button id="add-exercise-to-template-btn" class="log-button">Add Exercise</button>
@@ -94,14 +95,70 @@
             </div>
             <div class="edit-exercise-form">
                 <label for="edit-sets-input">Sets:</label>
-                <input type="number" id="edit-sets-input">
+                <input type="number" id="edit-sets-input" placeholder="e.g., 3">
                 <label for="edit-reps-input">Reps:</label>
-                <input type="number" id="edit-reps-input">
+                <input type="number" id="edit-reps-input" placeholder="e.g., 10">
                 <label for="edit-weight-input">Weight (lbs):</label>
-                <input type="number" id="edit-weight-input">
+                <input type="number" id="edit-weight-input" placeholder="e.g., 135">
                 <label for="edit-timer-input">Rest Per Set (sec):</label>
-                <input type="number" id="edit-timer-input">
+                <input type="number" id="edit-timer-input" placeholder="e.g., 60">
                 <button id="save-exercise-changes-btn" class="log-button">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="interactive-workout-modal" class="modal-overlay">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="interactive-workout-title">Workout in Progress</h2>
+                <button id="finish-workout-btn" class="skip-button">Finish Workout</button>
+            </div>
+            <div id="interactive-workout-content">
+                <div id="exercise-setup-view">
+                     <h3 id="setup-exercise-name"></h3>
+                     <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Previous</span>
+                            <span id="previous-performance">135 lbs, 3x10</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Today's Target</span>
+                            <div class="interactive-form">
+                                <label for="target-weight-input">Weight (lbs):</label>
+                                <input type="number" id="target-weight-input">
+                                <label for="target-sets-input">Sets:</label>
+                                <input type="number" id="target-sets-input">
+                                <label for="target-reps-input">Reps:</label>
+                                <input type="number" id="target-reps-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workout-controls">
+                        <button id="start-exercise-btn" class="log-button gym">Start Exercise</button>
+                    </div>
+                </div>
+                <div id="exercise-active-view" style="display: none;">
+                    <h3 id="active-exercise-name"></h3>
+                    <div class="set-logging-area">
+                        <h4>Set <span id="current-set-number">1</span> of <span id="total-set-count">3</span></h4>
+                        <div class="interactive-form">
+                            <label for="log-weight-input">Weight (lbs):</label>
+                            <input type="number" id="log-weight-input">
+                            <label for="log-reps-input">Reps:</label>
+                            <input type="number" id="log-reps-input">
+                        </div>
+                    </div>
+                    <div class="workout-controls">
+                        <button id="workout-control-btn" class="log-button gym">Complete Set</button>
+                    </div>
+                </div>
+                <div id="timer-view" style="display: none;">
+                    <h3 id="timer-title">Rest</h3>
+                    <div id="timer-display" class="timer-display">60</div>
+                    <div class="workout-controls">
+                        <button id="skip-timer-btn" class="next-day-button">Skip Rest</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

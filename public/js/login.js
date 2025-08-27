@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loginButton = document.getElementById("login-btn")
   const usernameInput = document.getElementById("username-input")
-  const errorMessage = document.getElementById("error-message")
+  const errorMessage = document.getElementById("error-text") // Corrected ID from "error-message" to "error-text"
 
   loginButton.addEventListener("click", () => {
     const username = usernameInput.value.trim().toLowerCase()

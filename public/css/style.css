@@ -143,6 +143,8 @@ header h1 { font-weight: 600; }
 .modal-content.large { max-width: 800px; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--bg-light-1); }
 .modal-header h2 { margin: 0; }
+hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 20px 0; }
+#template-editor-content h4 { color: var(--text-muted); margin-top: 0; margin-bottom: 10px; text-align: left; }
 
 .close-button,
 .delete-btn {
@@ -179,203 +181,52 @@ header h1 { font-weight: 600; }
 .schedule-form button { margin-top: 10px; }
 
 /* Styles for Workout Log */
-#workout-log-container {
-    margin-bottom: 20px;
-}
-.exercise-form {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-.exercise-form input {
-    flex-grow: 1;
-    padding: 10px;
-    background-color: var(--bg-light-1);
-    border: 1px solid #777;
-    border-radius: 4px;
-    color: var(--text-light);
-    font-size: 16px;
-}
-#preset-exercises-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.preset-exercise-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--bg-light-1);
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* Styles for Card Toggling */
-.card-header-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.toggle-card-btn {
-    background: none;
-    border: 2px solid var(--text-muted);
-    color: var(--text-muted);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.toggle-card-btn:hover {
-    color: var(--text-light);
-    border-color: var(--text-light);
-}
-.card-content.collapsed {
-    display: none;
-}
-.toggle-card-btn.collapsed {
-    transform: rotate(180deg);
-}
-
+.daily-workout-summary { list-style: none; padding: 0; margin-bottom: 20px; }
+.daily-workout-summary li { background-color: var(--bg-light-1); padding: 10px; border-radius: 5px; margin-bottom: 5px; }
+.daily-workout-summary li.break-item { background-color: var(--bg-dark-1); color: var(--accent-orange); text-align: center; font-style: italic; }
 
 /* Styles for Workout Template Editor */
-.workout-week-view {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
-}
-.day-template-btn {
-    padding: 10px 15px;
-    font-weight: 600;
-    border: 2px solid var(--bg-light-1);
-    background-color: var(--bg-dark-2);
-    color: var(--text-muted);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.day-template-btn.workout-day {
-    border-color: var(--accent-blue);
-    color: var(--text-light);
-}
-.day-template-btn:hover {
-    transform: translateY(-2px);
-}
-#day-template-exercises-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-}
-.template-exercise-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--bg-light-1);
-    padding: 10px;
-    border-radius: 5px;
-}
-.template-exercise-item .exercise-name {
-    flex-grow: 1;
-    font-weight: 600;
-}
-.template-exercise-item .exercise-details {
-    color: var(--text-muted);
-    margin: 0 15px;
-}
-.template-exercise-item .exercise-details.prompt {
-    font-style: italic;
-}
-.template-exercise-item .exercise-actions {
-    display: flex;
-    gap: 10px;
-}
-.template-break-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--accent-orange);
-    font-style: italic;
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: var(--bg-dark-1);
-}
-.template-break-item span {
-    flex-grow: 1;
-}
-.template-add-form {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-.template-add-form select, .template-add-form input {
-    flex-grow: 1;
-    background-color: var(--bg-light-1);
-    color: var(--text-light);
-    border: 1px solid #777;
-    border-radius: 4px;
-    padding: 10px;
-}
-.edit-exercise-form {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 15px;
-    align-items: center;
-    margin-top: 15px;
-}
-.edit-exercise-form label {
-    font-weight: 600;
-}
-.edit-exercise-form input {
-    width: 95%;
-    padding: 10px;
-    background-color: var(--bg-light-1);
-    border: 1px solid #777;
-    border-radius: 4px;
-    color: var(--text-light);
-    font-size: 16px;
-}
-.edit-exercise-form button {
-    grid-column: 1 / -1;
-}
+.workout-week-view { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+.day-template-btn { padding: 10px 15px; font-weight: 600; border: 2px solid var(--bg-light-1); background-color: var(--bg-dark-2); color: var(--text-muted); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.day-template-btn.workout-day { border-color: var(--accent-blue); color: var(--text-light); }
+.day-template-btn:hover { transform: translateY(-2px); }
+#day-template-exercises-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; max-height: 300px; overflow-y: auto; }
+.template-exercise-item, .template-break-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 5px; }
+.template-exercise-item { background-color: var(--bg-light-1); }
+.template-break-item { color: var(--accent-orange); font-style: italic; text-align: center; background-color: var(--bg-dark-1); }
+.template-exercise-item .exercise-name { flex-grow: 1; font-weight: 600; }
+.template-exercise-item .exercise-details { color: var(--text-muted); margin: 0 15px; }
+.template-exercise-item .exercise-details.prompt { font-style: italic; }
+.template-exercise-item .exercise-actions { display: flex; gap: 10px; }
+.template-break-item span { flex-grow: 1; }
+.template-add-form { display: flex; gap: 10px; margin-top: 10px; }
+.template-add-form select, .template-add-form input { flex-grow: 1; background-color: var(--bg-light-1); color: var(--text-light); border: 1px solid #777; border-radius: 4px; padding: 10px; }
+.edit-exercise-form { display: grid; grid-template-columns: auto 1fr; gap: 15px; align-items: center; margin-top: 15px; }
+.edit-exercise-form label { font-weight: 600; justify-self: end; }
+.edit-exercise-form input { width: 95%; padding: 10px; background-color: var(--bg-light-1); border: 1px solid #777; border-radius: 4px; color: var(--text-light); font-size: 16px; }
+.edit-exercise-form button { grid-column: 1 / -1; }
+
+/* Interactive Workout Modal Styles */
+.current-exercise-display { text-align: center; margin-bottom: 20px; }
+.current-exercise-display h3 { font-size: 2em; margin-bottom: 15px; color: var(--accent-blue); }
+#setup-exercise-name { color: var(--text-light); }
+.details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background-color: var(--bg-light-1); padding: 15px; border-radius: 8px; }
+.detail-item .detail-label { display: block; font-size: 0.9em; color: var(--text-muted); margin-bottom: 5px; }
+.detail-item span { font-size: 1.2em; font-weight: 600; }
+.interactive-form { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; }
+.interactive-form label { font-weight: 600; justify-self: end; }
+.interactive-form input { width: 80px; padding: 8px; background-color: var(--bg-dark-1); border: 1px solid #777; border-radius: 4px; color: var(--text-light); font-size: 1em; }
+.set-logging-area { margin: 20px 0; padding: 15px; background-color: var(--bg-dark-1); border-radius: 8px; text-align: center; }
+.set-logging-area h4 { margin-top: 0; }
+.set-input-group { display: flex; justify-content: center; gap: 15px; }
+.set-input-group input { width: 100px; text-align: center; }
+.workout-controls { text-align: center; margin-top: 20px; }
+#timer-view { text-align: center; }
+#timer-display { font-size: 6em; font-weight: 600; color: var(--accent-orange); margin: 20px 0; }
 
 /* Navigation Bar Styles */
-.main-nav {
-    background-color: var(--bg-dark-2);
-    border-radius: 12px;
-    padding: 15px 25px;
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid var(--bg-light-1);
-}
-.nav-title {
-    font-weight: 600;
-    font-size: 1.2em;
-    color: var(--text-light);
-}
-.nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-.nav-links a:hover, .nav-links a.active {
-    color: var(--accent-blue);
-}
-.nav-user {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
+.main-nav { background-color: var(--bg-dark-2); border-radius: 12px; padding: 15px 25px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--bg-light-1); }
+.nav-title { font-weight: 600; font-size: 1.2em; color: var(--text-light); }
+.nav-links a { color: var(--text-muted); text-decoration: none; margin: 0 15px; font-weight: 600; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent-blue); }
+.nav-user { display: flex; align-items: center; gap: 15px; }

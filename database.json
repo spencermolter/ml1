@@ -3,13 +3,13 @@
     {
       "username": "jason",
       "trackerData": {
-        "gymStreak": 1,
-        "dietCount": 1,
+        "gymStreak": 0,
+        "dietCount": 0,
         "goals": {
-          "calories": 2500,
-          "protein": 180,
-          "carbs": 300,
-          "fat": 70
+          "calories": 1981,
+          "protein": 121,
+          "carbs": 264,
+          "fat": 56
         },
         "presetFoods": [
           {
@@ -40,7 +40,22 @@
               "foods": []
             }
           ],
-          "2025-08-24": []
+          "2025-08-24": [],
+          "2025-08-26": [
+            {
+              "mealName": "Breakfast",
+              "foods": [
+                {
+                  "name": "Whey Protein",
+                  "calories": 120,
+                  "protein": 25,
+                  "carbs": 3,
+                  "fat": 1
+                }
+              ]
+            }
+          ],
+          "2025-08-27": []
         },
         "lastCompletionDate": null,
         "workoutSchedule": [
@@ -99,10 +114,67 @@
               "reps": 8,
               "weight": 30,
               "timer": 120
+            },
+            {
+              "type": "break",
+              "duration": 60
+            },
+            {
+              "type": "exercise",
+              "name": "Squat",
+              "sets": 3,
+              "reps": 10,
+              "weight": 200,
+              "timer": 60
             }
           ],
-          "Sunday": []
-        }
+          "Sunday": [],
+          "Tuesday": [
+            {
+              "type": "exercise",
+              "name": "Bench",
+              "sets": 3,
+              "reps": 8,
+              "weight": 120,
+              "timer": 180
+            },
+            {
+              "type": "break",
+              "duration": 100
+            },
+            {
+              "type": "exercise",
+              "name": "Squat",
+              "sets": 2,
+              "reps": 2,
+              "weight": 2,
+              "timer": 10
+            }
+          ],
+          "Wednesday": [
+            {
+              "type": "exercise",
+              "name": "Bench",
+              "sets": 3,
+              "reps": 8,
+              "weight": 120,
+              "timer": 10
+            },
+            {
+              "type": "break",
+              "duration": 180
+            },
+            {
+              "type": "exercise",
+              "name": "Squat",
+              "sets": 2,
+              "reps": 10,
+              "weight": 200,
+              "timer": 30
+            }
+          ]
+        },
+        "currentDayIndex": 2
       }
     },
     {
