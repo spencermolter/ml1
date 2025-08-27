@@ -79,16 +79,24 @@ export async function loadNavbar(loggedInUser) {
       const navHTML = await response.text()
       navPlaceholder.innerHTML = navHTML
 
-      // Add logout functionality and username
       document
         .getElementById("logout-btn")
         .addEventListener("click", () => logout(loggedInUser))
       document.getElementById("username-display").textContent = loggedInUser
 
-      // Make the current page's link active
+      // Hamburger Menu Functionality
+      const hamburgerBtn = document.getElementById("hamburger-btn")
+      const navLinks = document.getElementById("nav-links")
+      if (hamburgerBtn && navLinks) {
+        hamburgerBtn.addEventListener("click", () => {
+          navLinks.classList.toggle("active")
+        })
+      }
+
+      // Set active link
       const currentPage = window.location.pathname
-      const navLinks = document.querySelectorAll(".nav-links a")
-      navLinks.forEach((link) => {
+      const navLinksAnchors = document.querySelectorAll(".nav-links a")
+      navLinksAnchors.forEach((link) => {
         if (link.getAttribute("href") === currentPage) {
           link.classList.add("active")
         }
