@@ -1,77 +1,72 @@
 const express = require("express")
+const bodyParser = require("body-parser")
 const fs = require("fs")
 const path = require("path")
 
 const app = express()
-const port = 3000
-const databasePath = path.join(__dirname, "database.json")
+// Use the port Railway provides, or default to 3000 for local development
+const port = process.env.PORT || 3000
+const DB_PATH = path.join(__dirname, "database.json")
 
-// --- MIDDLEWARE ---
-app.use(express.static("public"))
-app.use(express.json())
+app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname, "public")))
 
-// --- API ROUTES ---
+function readData() {
+  if (!fs.existsSync(DB_PATH)) {
+    return { users: [] }
+  }
+  const data = fs.readFileSync(DB_PATH, "utf8")
+  return JSON.parse(data)
+}
+
+function writeData(data) {
+  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2))
+}
+
 app.post("/api/login", (req, res) => {
   const { username, currentDayIndex } = req.body
+  const db = readData()
+  let user = db.users.find((u) => u.username === username)
 
-  fs.readFile(databasePath, "utf8", (err, data) => {
-    if (err)
-      return res
-        .status(500)
-        .json({ status: "error", message: "Could not read database." })
-
-    let db = JSON.parse(data)
-    const userIndex = db.users.findIndex((u) => u.username === username)
-
-    if (userIndex !== -1) {
-      // User found, update their day index
-      db.users[userIndex].trackerData.currentDayIndex = currentDayIndex
-
-      // Write the updated database back to the file
-      fs.writeFile(databasePath, JSON.stringify(db, null, 2), (writeErr) => {
-        if (writeErr) return res.status(500).send("Error saving user data.")
-        // Send success response after saving
-        res.json({ status: "success", message: "Login successful." })
-      })
-    } else {
-      res.status(404).json({ status: "error", message: "Username not found." })
+  if (!user) {
+    user = {
+      username: username,
+      trackerData: {
+        gymStreak: 0,
+        dietCount: 0,
+        lastCompletionDate: null,
+        foodLog: {},
+        goals: { calories: 2000, protein: 150, carbs: 250, fat: 65 },
+        workoutSchedule: [false, false, false, false, false, false, false],
+        workoutTemplates: {},
+      },
     }
-  })
+    db.users.push(user)
+  }
+
+  writeData(db)
+  res.json({ status: "success", message: "Logged in successfully" })
 })
 
 app.get("/api/data", (req, res) => {
-  fs.readFile(databasePath, "utf8", (err, data) => {
-    if (err) return res.status(500).send("Error reading database file.")
-    res.send(data)
-  })
+  const db = readData()
+  res.json(db)
 })
 
 app.post("/api/data", (req, res) => {
   const { username, trackerData } = req.body
-  fs.readFile(databasePath, "utf8", (err, data) => {
-    if (err)
-      return res
-        .status(500)
-        .json({ status: "error", message: "Could not read database." })
-    let db = JSON.parse(data)
-    const userIndex = db.users.findIndex((u) => u.username === username)
-    if (userIndex !== -1) {
-      db.users[userIndex].trackerData = trackerData
-      fs.writeFile(databasePath, JSON.stringify(db, null, 2), (err) => {
-        if (err) return res.status(500).send("Error writing to database file.")
-        res.json({ status: "success", message: "Data saved." })
-      })
-    } else {
-      res
-        .status(404)
-        .json({ status: "error", message: "User not found during save." })
-    }
-  })
+  const db = readData()
+  const userIndex = db.users.findIndex((u) => u.username === username)
+  if (userIndex !== -1) {
+    db.users[userIndex].trackerData = trackerData
+    writeData(db)
+    res.json({ status: "success", message: "Data saved" })
+  } else {
+    res.status(404).json({ status: "error", message: "User not found" })
+  }
 })
 
-// --- START SERVER ---
 app.listen(port, () => {
-  console.log(
-    `Server is running. Open http://localhost:${port}/login.html in your browser.`
-  )
+  // This log is now more accurate for both local and deployed environments
+  console.log(`Server is running on port ${port}`)
 })
