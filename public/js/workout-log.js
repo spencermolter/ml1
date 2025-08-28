@@ -87,9 +87,13 @@ function applyWorkoutCompletionStyle() {
       document
         .getElementById("undo-workout-log-btn")
         .addEventListener("click", () => {
+          const today = Utils.getTodayString()
           delete appState.workoutLog[today]
           appState.gymStreak--
           appState.lastGymLog = null
+          if (appState.lastCompletionDate === today) {
+            appState.lastCompletionDate = null
+          }
           Utils.saveData(loggedInUser, appState)
           dailyWorkoutCard.classList.remove("workout-complete-overlay")
           congratulations.remove()

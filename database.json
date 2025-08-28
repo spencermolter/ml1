@@ -3,20 +3,12 @@
     {
       "username": "jason",
       "trackerData": {
-        "gymStreak": 1,
+        "gymStreak": 4,
         "foodLog": {
           "2025-08-28": [
             {
               "mealName": "Breakfast",
-              "foods": [
-                {
-                  "name": "Steak",
-                  "calories": 2000,
-                  "protein": 150,
-                  "carbs": 200,
-                  "fat": 80
-                }
-              ]
+              "foods": []
             }
           ]
         },
@@ -26,7 +18,15 @@
           "carbs": 200,
           "fat": 80
         },
-        "presetFoods": [],
+        "presetFoods": [
+          {
+            "name": "Steak",
+            "calories": 2000,
+            "protein": 200,
+            "carbs": 200,
+            "fat": 200
+          }
+        ],
         "workoutTemplates": {
           "Thursday": [
             {
@@ -112,15 +112,17 @@
             }
           ]
         },
-        "dietCount": 5,
-        "lastDietLog": "2025-08-28"
+        "dietCount": 7,
+        "lastDietLog": null,
+        "lastGymLog": "2025-08-28",
+        "lastCompletionDate": null
       }
     },
     {
       "username": "brother",
       "trackerData": {
         "gymStreak": 3,
-        "dietCount": 1,
+        "dietCount": 0,
         "goals": {
           "calories": 2800,
           "protein": 200,
@@ -231,7 +233,7 @@
             }
           ]
         },
-        "lastDietLog": "2025-08-28",
+        "lastDietLog": null,
         "lastGymLog": "2025-08-28"
       }
     }

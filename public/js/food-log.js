@@ -80,8 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document
           .getElementById("undo-diet-log-btn")
           .addEventListener("click", () => {
+            const todayStr = Utils.getTodayString()
             appState.dietCount--
             appState.lastDietLog = null
+            if (appState.lastCompletionDate === todayStr) {
+              appState.lastCompletionDate = null
+            }
             Utils.saveData(loggedInUser, appState)
             foodLogCard.classList.remove("diet-complete-overlay")
             congratulations.remove()

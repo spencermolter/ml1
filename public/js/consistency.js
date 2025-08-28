@@ -40,49 +40,35 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateButtonStates() {
     const todayStr = Utils.getTodayString()
     const dayIsComplete = appState.lastCompletionDate === todayStr
-    const today = new Date()
-    const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1
-    const isWorkoutDay =
-      appState.workoutSchedule && appState.workoutSchedule[dayOfWeek]
-
     const gymLoggedToday = appState.lastGymLog === todayStr
     const dietLoggedToday = appState.lastDietLog === todayStr
 
-    const gymTaskDone = gymLoggedToday || !isWorkoutDay
-    const dietTaskDone = dietLoggedToday
-
-    completeDayBtn.disabled = dayIsComplete || !gymTaskDone || !dietTaskDone
+    completeDayBtn.disabled =
+      dayIsComplete || !gymLoggedToday || !dietLoggedToday
 
     completionStatus.textContent = dayIsComplete ? "✅ Day Complete" : ""
   }
 
   async function completeDay() {
-    const today = new Date()
-    const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1
-    const isWorkoutDay =
-      appState.workoutSchedule && appState.workoutSchedule[dayOfWeek]
     const todayStr = Utils.getTodayString()
     const gymLoggedToday = appState.lastGymLog === todayStr
     const dietLoggedToday = appState.lastDietLog === todayStr
 
-    const missedWorkout = isWorkoutDay && !gymLoggedToday
-    const missedDiet = !dietLoggedToday
-    if (missedWorkout || missedDiet) {
-      const alertMessage =
-        "You haven't logged everything. Your streaks will be reset if you continue."
-      const userConfirmed = await Utils.showConfirm(
-        "Are you sure?",
-        alertMessage,
-        "Yes, Complete Day",
-        "No, Go Back"
+    if (!gymLoggedToday || !dietLoggedToday) {
+      // This path should ideally not be taken if the button is disabled correctly
+      Utils.showAlert(
+        "Action Required",
+        "Please log both your gym session and diet for today to complete the day."
       )
-      if (!userConfirmed) return
-      if (missedWorkout) appState.gymStreak = 0
-      if (missedDiet) appState.dietCount = 0
-    } else {
-      Utils.showAlert("Nice Job!", "Day complete! Consistency is key.")
+      return
     }
+
+    // Both are logged, proceed with completion
+    appState.gymStreak++
+    appState.dietCount++
     appState.lastCompletionDate = todayStr
+    Utils.showAlert("Nice Job!", "Day complete! Consistency is key.")
+
     updateUI()
     Utils.saveData(loggedInUser, appState)
   }
