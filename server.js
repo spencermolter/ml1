@@ -4,7 +4,6 @@ const fs = require("fs")
 const path = require("path")
 
 const app = express()
-// Use the port Railway provides, or default to 3000 for local development
 const port = process.env.PORT || 3000
 const DB_PATH = path.join(__dirname, "database.json")
 
@@ -23,6 +22,13 @@ function writeData(data) {
   fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2))
 }
 
+// --- NEW ROUTE HANDLER ---
+// This tells the server how to handle requests for the main page
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"))
+})
+
+// --- API ROUTES ---
 app.post("/api/login", (req, res) => {
   const { username, currentDayIndex } = req.body
   const db = readData()
@@ -67,6 +73,5 @@ app.post("/api/data", (req, res) => {
 })
 
 app.listen(port, () => {
-  // This log is now more accurate for both local and deployed environments
   console.log(`Server is running on port ${port}`)
 })
