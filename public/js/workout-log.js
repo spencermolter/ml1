@@ -5,13 +5,13 @@ let appState = {}
 let loggedInUser = null
 let currentEditingDay = null
 let currentExerciseIndex = null
+let timerWorker = new Worker("/js/timer.worker.js")
 let workoutState = {
   active: false,
   program: [],
   currentItemIndex: 0,
   currentSet: 1,
   liveExerciseData: {},
-  timerInterval: null,
   timerType: null, // Can be 'set' or 'break'
 }
 
@@ -124,19 +124,19 @@ function renderTemplateItems() {
       }
 
       itemEl.innerHTML = `
-                <span class="exercise-name">${item.name}</span>
-                ${detailsHtml}
-                <div class="exercise-actions">
-                    <button class="edit-btn" data-index="${index}">Edit</button>
-                    <button class="delete-btn" data-index="${index}">&times;</button>
-                </div>
-            `
+                <span class="exercise-name">${item.name}</span>
+                ${detailsHtml}
+                <div class="exercise-actions">
+                    <button class="edit-btn" data-index="${index}">Edit</button>
+                    <button class="delete-btn" data-index="${index}">&times;</button>
+                </div>
+            `
     } else if (item.type === "break") {
       itemEl.className = "template-break-item"
       itemEl.innerHTML = `
-                <span>--- ${item.duration} second rest ---</span>
-                <button class="delete-btn" data-index="${index}">&times;</button>
-            `
+                <span>--- ${item.duration} second rest ---</span>
+                <button class="delete-btn" data-index="${index}">&times;</button>
+            `
     }
     exerciseListContainer.appendChild(itemEl)
   })
@@ -268,18 +268,18 @@ function renderDailyWorkout() {
       })
 
       dailyWorkoutContainer.innerHTML = `
-                <h3>Today's Program: ${todayName}</h3>
-                <ul class="daily-workout-summary">${listItems}</ul>
-                <button id="start-workout-btn" class="log-button gym">Start Workout</button>
-            `
+                <h3>Today's Program: ${todayName}</h3>
+                <ul class="daily-workout-summary">${listItems}</ul>
+                <button id="start-workout-btn" class="log-button gym">Start Workout</button>
+            `
       document
         .getElementById("start-workout-btn")
         .addEventListener("click", startWorkout)
     } else {
       dailyWorkoutContainer.innerHTML = `
-                <h3>Today's Program: ${todayName}</h3>
-                <p>No exercises found in the program. Edit the program to add some!</p>
-            `
+                <h3>Today's Program: ${todayName}</h3>
+                <p>No exercises found in the program. Edit the program to add some!</p>
+            `
     }
   } else {
     dailyWorkoutContainer.innerHTML = `<h3>Today is a Rest Day</h3>`
@@ -391,20 +391,12 @@ function startTimer(duration, type) {
   exerciseActiveView.style.display = "none"
   exerciseSetupView.style.display = "none"
   timerView.style.display = "block"
-  let timeLeft = duration
-  timerDisplay.textContent = timeLeft
+  timerDisplay.textContent = duration
 
-  workoutState.timerInterval = setInterval(() => {
-    timeLeft--
-    timerDisplay.textContent = timeLeft
-    if (timeLeft <= 0) {
-      skipTimer()
-    }
-  }, 1000)
+  timerWorker.postMessage({ command: "start", duration: duration })
 }
 
-function skipTimer() {
-  clearInterval(workoutState.timerInterval)
+function handleTimerEnd() {
   if (workoutState.timerType === "break") {
     moveToNextItem()
     displayCurrentWorkoutItem()
@@ -413,6 +405,11 @@ function skipTimer() {
     workoutState.currentSet++
     updateActiveSetDisplay()
   }
+}
+
+function skipTimer() {
+  timerWorker.postMessage({ command: "stop" })
+  handleTimerEnd()
 }
 
 function moveToNextItem() {
@@ -522,6 +519,14 @@ finishWorkoutBtn.addEventListener("click", finishWorkout)
 startExerciseBtn.addEventListener("click", startCurrentExercise)
 workoutControlBtn.addEventListener("click", handleWorkoutControlClick)
 skipTimerBtn.addEventListener("click", skipTimer)
+
+timerWorker.onmessage = function (e) {
+  if (e.data.type === "tick") {
+    timerDisplay.textContent = e.data.timeLeft
+  } else if (e.data.type === "done") {
+    handleTimerEnd()
+  }
+}
 
 document
   .getElementById("ok-alert-modal-btn")
