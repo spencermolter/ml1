@@ -66,12 +66,26 @@ document.addEventListener("DOMContentLoaded", () => {
       checkProteinGoal(totals.protein, goals.protein)
 
     if (dietGoalsMet) {
+      if (appState.lastDietLog !== Utils.getTodayString()) {
+        appState.dietCount++
+        appState.lastDietLog = Utils.getTodayString()
+        Utils.saveData(loggedInUser, appState)
+      }
       foodLogCard.classList.add("diet-complete-overlay")
       if (!foodLogCard.querySelector(".completion-message")) {
         const congratulations = document.createElement("div")
         congratulations.className = "completion-message"
-        congratulations.innerHTML = `<h2>Diet Goals Met!</h2><p>Great job! You've hit your diet goals for the day.</p>`
+        congratulations.innerHTML = `<h2>Diet Goals Met!</h2><p>Great job! You've hit your diet goals for the day.</p><button id="undo-diet-log-btn" class="log-button">Made a mistake?</button>`
         foodLogCard.appendChild(congratulations)
+        document
+          .getElementById("undo-diet-log-btn")
+          .addEventListener("click", () => {
+            appState.dietCount--
+            appState.lastDietLog = null
+            Utils.saveData(loggedInUser, appState)
+            foodLogCard.classList.remove("diet-complete-overlay")
+            congratulations.remove()
+          })
       }
     }
   }

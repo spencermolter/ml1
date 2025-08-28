@@ -82,8 +82,18 @@ function applyWorkoutCompletionStyle() {
     if (!dailyWorkoutCard.querySelector(".completion-message")) {
       const congratulations = document.createElement("div")
       congratulations.className = "completion-message"
-      congratulations.innerHTML = `<h2>Workout Complete!</h2><p>Great job! You've crushed your workout for the day.</p>`
+      congratulations.innerHTML = `<h2>Workout Complete!</h2><p>Great job! You've crushed your workout for the day.</p><button id="undo-workout-log-btn" class="log-button">Made a mistake?</button>`
       dailyWorkoutCard.appendChild(congratulations)
+      document
+        .getElementById("undo-workout-log-btn")
+        .addEventListener("click", () => {
+          delete appState.workoutLog[today]
+          appState.gymStreak--
+          appState.lastGymLog = null
+          Utils.saveData(loggedInUser, appState)
+          dailyWorkoutCard.classList.remove("workout-complete-overlay")
+          congratulations.remove()
+        })
     }
   }
 }
@@ -442,15 +452,17 @@ function finishWorkout() {
     appState.workoutLog = {}
   }
   appState.workoutLog[today] = workoutState.todaysLog
+
+  if (appState.lastGymLog !== today) {
+    appState.gymStreak++
+    appState.lastGymLog = today
+  }
+
   Utils.saveData(loggedInUser, appState)
 
   Utils.showAlert(
     "Workout Complete!",
     "Great job! You've finished your workout for the day."
-  )
-  localStorage.setItem(
-    `workoutCompleted_${loggedInUser}`,
-    Utils.getTodayString()
   )
   applyWorkoutCompletionStyle()
 }

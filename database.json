@@ -119,15 +119,30 @@
     {
       "username": "brother",
       "trackerData": {
-        "gymStreak": 2,
-        "dietCount": 0,
+        "gymStreak": 3,
+        "dietCount": 1,
         "goals": {
           "calories": 2800,
           "protein": 200,
           "carbs": 350,
           "fat": 80
         },
-        "presetFoods": [],
+        "presetFoods": [
+          {
+            "name": "Steak",
+            "calories": 2800,
+            "protein": 200,
+            "carbs": 350,
+            "fat": 80
+          },
+          {
+            "name": "Unnamed Food",
+            "calories": 0,
+            "protein": 0,
+            "carbs": 0,
+            "fat": 0
+          }
+        ],
         "foodLog": {
           "2025-08-28": [
             {
@@ -144,7 +159,7 @@
             }
           ]
         },
-        "lastCompletionDate": null,
+        "lastCompletionDate": "2025-08-28",
         "workoutSchedule": [
           false,
           true,
@@ -215,7 +230,9 @@
               "timer": 3
             }
           ]
-        }
+        },
+        "lastDietLog": "2025-08-28",
+        "lastGymLog": "2025-08-28"
       }
     }
   ]

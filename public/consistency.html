@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consistency - Tracker App</title>
+    <title>Consistency Tracker - Fitness Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -13,25 +13,31 @@
     <header id="nav-placeholder"></header>
 
     <main class="container">
-        <section class="card consistency-card" id="consistency-card">
-            <div class="card-header">
-                <h2>Consistency Tracker</h2>
+        <section class="card consistency-card">
+            <h2>Consistency Tracker</h2>
+            <div class="counters-container">
+                <div class="counter-item">
+                    <span id="gym-streak-display" class="counter-number">0</span>
+                    <span class="counter-label">Gym Streak</span>
+                </div>
+                <div class="counter-item">
+                    <span id="diet-counter-display" class="counter-number">0</span>
+                    <span class="counter-label">Diet Days</span>
+                </div>
             </div>
-            <div class="card-content">
-                <div class="schedule-visualizer">
-                    <div class="day-indicator">M</div><div class="day-indicator">T</div><div class="day-indicator">W</div><div class="day-indicator">T</div><div class="day-indicator">F</div><div class="day-indicator">S</div><div class="day-indicator">S</div>
-                </div>
-                <div class="counters-container">
-                    <div class="consistency-counter"><span id="gym-streak-display" class="counter-number">0</span><span class="counter-label">Gym Streak</span></div>
-                    <div class="consistency-counter"><span id="diet-counter-display" class="counter-number">0</span><span class="counter-label">Diet Days</span></div>
-                </div>
-                <div class="button-group">
-                    <button id="log-gym-btn" class="log-button gym">Log Gym</button>
-                    <button id="log-diet-btn" class="log-button diet">Log Diet</button>
-                    <button id="complete-day-btn" class="next-day-button">Complete Day</button>
-                    <span id="completion-status" class="completion-status"></span>
-                </div>
-                <p class="motivation-quote">"Discipline is the bridge between goals and accomplishment."</p>
+            <p id="motivation-quote" class="motivation-quote">"The only bad workout is the one that didn't happen."</p>
+            <div class="schedule-visualizer">
+                <div class="day-indicator">M</div>
+                <div class="day-indicator">T</div>
+                <div class="day-indicator">W</div>
+                <div class="day-indicator">T</div>
+                <div class="day-indicator">F</div>
+                <div class="day-indicator">S</div>
+                <div class="day-indicator">S</div>
+            </div>
+            <div class="button-group">
+                <button id="complete-day-btn" class="log-button">Complete Day</button>
+                <span id="completion-status"></span>
             </div>
         </section>
     </main>
