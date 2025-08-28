@@ -3,12 +3,20 @@
     {
       "username": "jason",
       "trackerData": {
-        "gymStreak": 4,
+        "gymStreak": 6,
         "foodLog": {
           "2025-08-28": [
             {
               "mealName": "Breakfast",
-              "foods": []
+              "foods": [
+                {
+                  "name": "Steak",
+                  "calories": 2000,
+                  "protein": 200,
+                  "carbs": 200,
+                  "fat": 200
+                }
+              ]
             }
           ]
         },
@@ -61,61 +69,12 @@
           false
         ],
         "workoutLog": {
-          "2025-08-28": [
-            {
-              "name": "Bench",
-              "sets": 3,
-              "reps": 3,
-              "weight": 3,
-              "timer": 3,
-              "log": [
-                {
-                  "set": 1,
-                  "weight": "3",
-                  "reps": "3"
-                },
-                {
-                  "set": 2,
-                  "weight": "3",
-                  "reps": "3"
-                },
-                {
-                  "set": 3,
-                  "weight": "3",
-                  "reps": "3"
-                }
-              ]
-            },
-            {
-              "name": "Squat",
-              "sets": 3,
-              "reps": 3,
-              "weight": 3,
-              "timer": 3,
-              "log": [
-                {
-                  "set": 1,
-                  "weight": "3",
-                  "reps": "3"
-                },
-                {
-                  "set": 2,
-                  "weight": "3",
-                  "reps": "3"
-                },
-                {
-                  "set": 3,
-                  "weight": "3",
-                  "reps": "3"
-                }
-              ]
-            }
-          ]
+          "2025-08-28": []
         },
-        "dietCount": 7,
-        "lastDietLog": null,
+        "dietCount": 10,
+        "lastDietLog": "2025-08-28",
         "lastGymLog": "2025-08-28",
-        "lastCompletionDate": null
+        "lastCompletionDate": "2025-08-28"
       }
     },
     {

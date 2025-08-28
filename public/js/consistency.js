@@ -43,8 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const gymLoggedToday = appState.lastGymLog === todayStr
     const dietLoggedToday = appState.lastDietLog === todayStr
 
-    completeDayBtn.disabled =
-      dayIsComplete || !gymLoggedToday || !dietLoggedToday
+    const canComplete = !dayIsComplete && gymLoggedToday && dietLoggedToday
+    completeDayBtn.disabled = !canComplete
+
+    if (canComplete) {
+      completeDayBtn.classList.add("active-green")
+    } else {
+      completeDayBtn.classList.remove("active-green")
+    }
 
     completionStatus.textContent = dayIsComplete ? "✅ Day Complete" : ""
   }

@@ -70,7 +70,15 @@ header h1 { font-weight: 600; }
     background-color: var(--accent-blue);
     color: var(--text-light);
 }
-.next-day-button, #complete-day-btn { background-color: #777; color: var(--text-light); }
+.next-day-button { background-color: #777; color: var(--text-light); }
+#complete-day-btn {
+    background-color: var(--bg-light-1);
+    color: var(--text-muted);
+}
+#complete-day-btn.active-green {
+    background-color: #4CAF50;
+    color: white;
+}
 .skip-button { background-color: var(--accent-red); color: var(--text-light); }
 .edit-btn { background-color: var(--accent-orange); color: var(--text-light); padding: 5px 10px; font-size: 14px; }
 .log-button:hover, .meal-preset-btn:hover, .next-day-button:hover, .skip-button:hover, .edit-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
@@ -200,7 +208,7 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
     filter: blur(10px);
     pointer-events: none;
 }
-  
+
 .completion-message {
     position: absolute;
     top: 50%;
