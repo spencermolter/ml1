@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1
     const isWorkoutDay =
       appState.workoutSchedule && appState.workoutSchedule[dayOfWeek]
+    const workoutCompleted = localStorage.getItem("workoutCompleted") === "true"
 
     const totals = Utils.calculateTotals(appState)
     const goals = appState.goals || {}
@@ -69,7 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const gymTaskDone = gymLoggedToday || !isWorkoutDay
     const dietTaskDone = dietLoggedToday
 
-    logGymButton.disabled = dayIsComplete || gymLoggedToday || !isWorkoutDay
+    logGymButton.disabled =
+      dayIsComplete || gymLoggedToday || !isWorkoutDay || !workoutCompleted
     logDietButton.disabled = dayIsComplete || !dietGoalsMet || dietLoggedToday
     completeDayBtn.disabled = dayIsComplete || !gymTaskDone || !dietTaskDone
 
@@ -79,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function logGym() {
     appState.gymStreak++
     gymLoggedToday = true
+    localStorage.removeItem("workoutCompleted")
     updateUI()
     Utils.saveData(loggedInUser, appState)
   }

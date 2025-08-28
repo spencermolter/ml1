@@ -124,19 +124,19 @@ function renderTemplateItems() {
       }
 
       itemEl.innerHTML = `
-                <span class="exercise-name">${item.name}</span>
-                ${detailsHtml}
-                <div class="exercise-actions">
-                    <button class="edit-btn" data-index="${index}">Edit</button>
-                    <button class="delete-btn" data-index="${index}">&times;</button>
-                </div>
-            `
+                <span class="exercise-name">${item.name}</span>
+                ${detailsHtml}
+                <div class="exercise-actions">
+                    <button class="edit-btn" data-index="${index}">Edit</button>
+                    <button class="delete-btn" data-index="${index}">&times;</button>
+                </div>
+            `
     } else if (item.type === "break") {
       itemEl.className = "template-break-item"
       itemEl.innerHTML = `
-                <span>--- ${item.duration} second rest ---</span>
-                <button class="delete-btn" data-index="${index}">&times;</button>
-            `
+                <span>--- ${item.duration} second rest ---</span>
+                <button class="delete-btn" data-index="${index}">&times;</button>
+            `
     }
     exerciseListContainer.appendChild(itemEl)
   })
@@ -268,18 +268,18 @@ function renderDailyWorkout() {
       })
 
       dailyWorkoutContainer.innerHTML = `
-                <h3>Today's Program: ${todayName}</h3>
-                <ul class="daily-workout-summary">${listItems}</ul>
-                <button id="start-workout-btn" class="log-button gym">Start Workout</button>
-            `
+                <h3>Today's Program: ${todayName}</h3>
+                <ul class="daily-workout-summary">${listItems}</ul>
+                <button id="start-workout-btn" class="log-button gym">Start Workout</button>
+            `
       document
         .getElementById("start-workout-btn")
         .addEventListener("click", startWorkout)
     } else {
       dailyWorkoutContainer.innerHTML = `
-                <h3>Today's Program: ${todayName}</h3>
-                <p>No exercises found in the program. Edit the program to add some!</p>
-            `
+                <h3>Today's Program: ${todayName}</h3>
+                <p>No exercises found in the program. Edit the program to add some!</p>
+            `
     }
   } else {
     dailyWorkoutContainer.innerHTML = `<h3>Today is a Rest Day</h3>`
@@ -427,6 +427,7 @@ function finishWorkout() {
     "Workout Complete!",
     "Great job! You've finished your workout for the day."
   )
+  localStorage.setItem("workoutCompleted", "true")
 }
 
 async function initializeApp() {

@@ -3,7 +3,7 @@
     {
       "username": "jason",
       "trackerData": {
-        "gymStreak": 1,
+        "gymStreak": 2,
         "dietCount": 0,
         "goals": {
           "calories": 1981,
@@ -63,7 +63,7 @@
           true,
           true,
           true,
-          false,
+          true,
           true,
           true,
           false
@@ -160,6 +160,20 @@
               "reps": 10,
               "weight": 200,
               "timer": 30
+            }
+          ],
+          "Thursday": [
+            {
+              "type": "exercise",
+              "name": "Squat",
+              "sets": 3,
+              "reps": 10,
+              "weight": 130,
+              "timer": 60
+            },
+            {
+              "type": "break",
+              "duration": 60
             }
           ]
         },

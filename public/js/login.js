@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // If login is successful, save username in localStorage
           localStorage.setItem("loggedInUser", username)
           // Redirect to the main food log page
-          window.location.href = "/food-log.html"
+          window.location.href = "/consistency.html"
         } else {
           errorMessage.textContent = data.message
         }
