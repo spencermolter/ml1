@@ -166,7 +166,16 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
     color: var(--accent-red);
 }
 .modal-overlay.visible { display: flex; justify-content: center; align-items: center; }
-.modal-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.modal-buttons .meal-preset-btn {
+    width: 80%;
+}
 .food-form { display: grid; gap: 10px; margin-top: 20px; }
 .food-form label { text-align: left; font-size: 0.9em; color: var(--text-muted); }
 .food-form input, .food-form select { width: 95%; padding: 10px; background-color: var(--bg-light-1); border: 1px solid #777; border-radius: 4px; color: var(--text-light); font-size: 16px; }
@@ -186,8 +195,33 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
 .daily-workout-summary li.break-item { background-color: var(--bg-dark-1); color: var(--accent-orange); text-align: center; font-style: italic; }
 
 /* Styles for Workout Template Editor */
-.workout-week-view { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
-.day-template-btn { padding: 10px 15px; font-weight: 600; border: 2px solid var(--bg-light-1); background-color: var(--bg-dark-2); color: var(--text-muted); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.workout-week-view {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.day-template-btn {
+    width: 100%;
+    padding: 10px 15px;
+    font-weight: 600;
+    border: 2px solid var(--bg-light-1);
+    background-color: var(--bg-dark-2);
+    color: var(--text-muted);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.workout-week-view .day-template-btn:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: 50%;
+    justify-self: center;
+}
+
 .day-template-btn.workout-day { border-color: var(--accent-blue); color: var(--text-light); }
 .day-template-btn:hover { transform: translateY(-2px); }
 #day-template-exercises-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; max-height: 300px; overflow-y: auto; }

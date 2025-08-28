@@ -55,7 +55,8 @@
               ]
             }
           ],
-          "2025-08-27": []
+          "2025-08-27": [],
+          "2025-08-28": []
         },
         "lastCompletionDate": null,
         "workoutSchedule": [
@@ -94,18 +95,6 @@
               "weight": 120,
               "timer": 180,
               "restAfter": 180
-            },
-            {
-              "type": "exercise",
-              "name": "Bench",
-              "sets": 3,
-              "reps": 10,
-              "weight": 120,
-              "timer": 180
-            },
-            {
-              "type": "break",
-              "duration": 180
             },
             {
               "type": "exercise",
