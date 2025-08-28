@@ -1,26 +1,31 @@
-let timerInterval = null
-let timeLeft = 0
+let timerId = null
+let startTime = null
+let duration = 0
 
 self.onmessage = function (e) {
-  if (e.data.command === "start") {
-    timeLeft = e.data.duration
-    // Clear any existing timer
-    if (timerInterval) {
-      clearInterval(timerInterval)
-    }
-    timerInterval = setInterval(() => {
-      timeLeft--
+  const { command, duration: newDuration } = e.data
+
+  if (command === "start") {
+    if (timerId) clearInterval(timerId)
+    startTime = Date.now()
+    duration = newDuration
+
+    timerId = setInterval(() => {
+      const elapsed = (Date.now() - startTime) / 1000
+      const timeLeft = Math.max(0, Math.round(duration - elapsed))
+
       self.postMessage({ type: "tick", timeLeft: timeLeft })
+
       if (timeLeft <= 0) {
-        clearInterval(timerInterval)
-        timerInterval = null
+        clearInterval(timerId)
+        timerId = null
         self.postMessage({ type: "done" })
       }
     }, 1000)
-  } else if (e.data.command === "stop") {
-    if (timerInterval) {
-      clearInterval(timerInterval)
-      timerInterval = null
+  } else if (command === "stop") {
+    if (timerId) {
+      clearInterval(timerId)
+      timerId = null
     }
   }
 }

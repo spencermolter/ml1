@@ -68,13 +68,11 @@
           true,
           false
         ],
-        "workoutLog": {
-          "2025-08-28": []
-        },
-        "dietCount": 10,
+        "workoutLog": {},
+        "dietCount": 11,
         "lastDietLog": "2025-08-28",
-        "lastGymLog": "2025-08-28",
-        "lastCompletionDate": "2025-08-28"
+        "lastGymLog": null,
+        "lastCompletionDate": null
       }
     },
     {
