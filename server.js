@@ -8,7 +8,10 @@ const port = process.env.PORT || 3000
 const DB_PATH = path.join(__dirname, "database.json")
 
 app.use(bodyParser.json())
-app.use(express.static("public"))
+
+// This line correctly serves all files from the 'public' directory.
+// A request to '/' will automatically serve 'public/index.html'.
+app.use(express.static(path.join(__dirname, "public")))
 
 function readData() {
   if (!fs.existsSync(DB_PATH)) {
@@ -22,6 +25,7 @@ function writeData(data) {
   fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2))
 }
 
+// --- API ROUTES ---
 app.post("/api/login", (req, res) => {
   const { username, currentDayIndex } = req.body
   const db = readData()
