@@ -8,6 +8,9 @@ const port = process.env.PORT || 3000
 const DB_PATH = path.join(__dirname, "database.json")
 
 app.use(bodyParser.json())
+
+// This line correctly serves all files from the 'public' directory.
+// A request to '/' will automatically serve 'public/index.html'.
 app.use(express.static(path.join(__dirname, "public")))
 
 function readData() {
@@ -21,12 +24,6 @@ function readData() {
 function writeData(data) {
   fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2))
 }
-
-// --- NEW ROUTE HANDLER ---
-// This tells the server how to handle requests for the main page
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"))
-})
 
 // --- API ROUTES ---
 app.post("/api/login", (req, res) => {
