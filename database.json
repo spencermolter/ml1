@@ -3,64 +3,56 @@
     {
       "username": "jason",
       "trackerData": {
-        "gymStreak": 2,
-        "dietCount": 0,
-        "goals": {
-          "calories": 1981,
-          "protein": 121,
-          "carbs": 264,
-          "fat": 56
-        },
-        "presetFoods": [
-          {
-            "name": "Whey Protein",
-            "calories": 120,
-            "protein": 25,
-            "carbs": 3,
-            "fat": 1
-          },
-          {
-            "name": "Whey Protein",
-            "calories": 120,
-            "protein": 25,
-            "carbs": 3,
-            "fat": 1
-          }
-        ],
+        "gymStreak": 1,
         "foodLog": {
-          "2025-08-20": [
-            {
-              "mealName": "Breakfast",
-              "foods": []
-            }
-          ],
-          "2025-08-21": [
-            {
-              "mealName": "Breakfast",
-              "foods": []
-            }
-          ],
-          "2025-08-24": [],
-          "2025-08-26": [
+          "2025-08-28": [
             {
               "mealName": "Breakfast",
               "foods": [
                 {
-                  "name": "Whey Protein",
-                  "calories": 120,
-                  "protein": 25,
-                  "carbs": 3,
-                  "fat": 1
+                  "name": "Steak",
+                  "calories": 2000,
+                  "protein": 150,
+                  "carbs": 200,
+                  "fat": 80
                 }
               ]
             }
-          ],
-          "2025-08-27": [],
-          "2025-08-28": []
+          ]
         },
-        "lastCompletionDate": null,
+        "goals": {
+          "calories": 2000,
+          "protein": 150,
+          "carbs": 200,
+          "fat": 80
+        },
+        "presetFoods": [],
+        "workoutTemplates": {
+          "Thursday": [
+            {
+              "type": "exercise",
+              "name": "Bench",
+              "sets": 3,
+              "reps": 3,
+              "weight": 3,
+              "timer": 3
+            },
+            {
+              "type": "break",
+              "duration": 3
+            },
+            {
+              "type": "exercise",
+              "name": "Squat",
+              "sets": 3,
+              "reps": 3,
+              "weight": 3,
+              "timer": 3
+            }
+          ]
+        },
         "workoutSchedule": [
-          true,
+          false,
           true,
           true,
           true,
@@ -68,122 +60,66 @@
           true,
           false
         ],
-        "presetExercises": [
-          {
-            "id": 2,
-            "name": "Squat"
-          },
-          {
-            "id": 3,
-            "name": "Overhead Press"
-          }
-        ],
-        "workoutLog": {},
-        "workoutTemplates": {
-          "0": [],
-          "1": [],
-          "2": [],
-          "3": [],
-          "4": [],
-          "5": [],
-          "6": [],
-          "Monday": [
+        "workoutLog": {
+          "2025-08-28": [
             {
               "name": "Bench",
               "sets": 3,
-              "reps": 8,
-              "weight": 120,
-              "timer": 180,
-              "restAfter": 180
+              "reps": 3,
+              "weight": 3,
+              "timer": 3,
+              "log": [
+                {
+                  "set": 1,
+                  "weight": "3",
+                  "reps": "3"
+                },
+                {
+                  "set": 2,
+                  "weight": "3",
+                  "reps": "3"
+                },
+                {
+                  "set": 3,
+                  "weight": "3",
+                  "reps": "3"
+                }
+              ]
             },
             {
-              "type": "exercise",
-              "name": "Curl",
-              "sets": 3,
-              "reps": 8,
-              "weight": 30,
-              "timer": 120
-            },
-            {
-              "type": "break",
-              "duration": 60
-            },
-            {
-              "type": "exercise",
               "name": "Squat",
               "sets": 3,
-              "reps": 10,
-              "weight": 200,
-              "timer": 60
-            }
-          ],
-          "Sunday": [],
-          "Tuesday": [
-            {
-              "type": "exercise",
-              "name": "Bench",
-              "sets": 3,
-              "reps": 8,
-              "weight": 120,
-              "timer": 180
-            },
-            {
-              "type": "break",
-              "duration": 100
-            },
-            {
-              "type": "exercise",
-              "name": "Squat",
-              "sets": 2,
-              "reps": 2,
-              "weight": 2,
-              "timer": 10
-            }
-          ],
-          "Wednesday": [
-            {
-              "type": "exercise",
-              "name": "Bench",
-              "sets": 3,
-              "reps": 8,
-              "weight": 120,
-              "timer": 10
-            },
-            {
-              "type": "break",
-              "duration": 180
-            },
-            {
-              "type": "exercise",
-              "name": "Squat",
-              "sets": 2,
-              "reps": 10,
-              "weight": 200,
-              "timer": 30
-            }
-          ],
-          "Thursday": [
-            {
-              "type": "exercise",
-              "name": "Squat",
-              "sets": 3,
-              "reps": 10,
-              "weight": 130,
-              "timer": 60
-            },
-            {
-              "type": "break",
-              "duration": 60
+              "reps": 3,
+              "weight": 3,
+              "timer": 3,
+              "log": [
+                {
+                  "set": 1,
+                  "weight": "3",
+                  "reps": "3"
+                },
+                {
+                  "set": 2,
+                  "weight": "3",
+                  "reps": "3"
+                },
+                {
+                  "set": 3,
+                  "weight": "3",
+                  "reps": "3"
+                }
+              ]
             }
           ]
         },
-        "currentDayIndex": 2
+        "dietCount": 5,
+        "lastDietLog": "2025-08-28"
       }
     },
     {
       "username": "brother",
       "trackerData": {
-        "gymStreak": 0,
+        "gymStreak": 2,
         "dietCount": 0,
         "goals": {
           "calories": 2800,
@@ -192,19 +128,61 @@
           "fat": 80
         },
         "presetFoods": [],
-        "foodLog": {},
+        "foodLog": {
+          "2025-08-28": [
+            {
+              "mealName": "Breakfast",
+              "foods": [
+                {
+                  "name": "Steak",
+                  "calories": 2800,
+                  "protein": 200,
+                  "carbs": 350,
+                  "fat": 80
+                }
+              ]
+            }
+          ]
+        },
         "lastCompletionDate": null,
         "workoutSchedule": [
           false,
           true,
           false,
           true,
-          false,
+          true,
           true,
           false
         ],
         "presetExercises": [],
-        "workoutLog": {},
+        "workoutLog": {
+          "2025-08-28": [
+            {
+              "name": "Bench",
+              "sets": 3,
+              "reps": 3,
+              "weight": 3,
+              "timer": 3,
+              "log": [
+                {
+                  "set": 1,
+                  "weight": "3",
+                  "reps": "3"
+                },
+                {
+                  "set": 2,
+                  "weight": "3",
+                  "reps": "3"
+                },
+                {
+                  "set": 3,
+                  "weight": "3",
+                  "reps": "3"
+                }
+              ]
+            }
+          ]
+        },
         "workoutTemplates": {
           "0": [],
           "1": [],
@@ -212,7 +190,31 @@
           "3": [],
           "4": [],
           "5": [],
-          "6": []
+          "6": [],
+          "Saturday": [
+            {
+              "type": "exercise",
+              "name": "Bench",
+              "sets": 3,
+              "reps": 3,
+              "weight": 3,
+              "timer": 3
+            },
+            {
+              "type": "break",
+              "duration": 20
+            }
+          ],
+          "Thursday": [
+            {
+              "type": "exercise",
+              "name": "Bench",
+              "sets": 3,
+              "reps": 3,
+              "weight": 3,
+              "timer": 3
+            }
+          ]
         }
       }
     }

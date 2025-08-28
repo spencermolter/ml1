@@ -12,11 +12,13 @@ let workoutState = {
   currentItemIndex: 0,
   currentSet: 1,
   liveExerciseData: {},
+  todaysLog: [],
   timerType: null, // Can be 'set' or 'break'
 }
 
 // --- DOM ELEMENTS ---
 const dailyWorkoutContainer = document.getElementById("daily-workout-container")
+const dailyWorkoutCard = document.getElementById("daily-workout-card")
 const editScheduleBtn = document.getElementById("edit-schedule-btn")
 const editScheduleModal = document.getElementById("edit-schedule-modal")
 const closeScheduleModalBtn = document.getElementById(
@@ -73,6 +75,19 @@ const timerDisplay = document.getElementById("timer-display")
 const skipTimerBtn = document.getElementById("skip-timer-btn")
 
 // --- FUNCTIONS ---
+function applyWorkoutCompletionStyle() {
+  const today = Utils.getTodayString()
+  if (appState.workoutLog && appState.workoutLog[today]) {
+    dailyWorkoutCard.classList.add("workout-complete-overlay")
+    if (!dailyWorkoutCard.querySelector(".completion-message")) {
+      const congratulations = document.createElement("div")
+      congratulations.className = "completion-message"
+      congratulations.innerHTML = `<h2>Workout Complete!</h2><p>Great job! You've crushed your workout for the day.</p>`
+      dailyWorkoutCard.appendChild(congratulations)
+    }
+  }
+}
+
 function openEditScheduleModal() {
   if (appState.workoutSchedule) {
     scheduleCheckboxes.forEach((checkbox, index) => {
@@ -302,6 +317,7 @@ function startWorkout() {
   workoutState.program = appState.workoutTemplates[todayName] || []
   workoutState.active = true
   workoutState.currentItemIndex = 0
+  workoutState.todaysLog = []
 
   displayCurrentWorkoutItem()
   interactiveWorkoutModal.classList.add("visible")
@@ -376,11 +392,11 @@ function handleWorkoutControlClick() {
     weight: logWeightInput.value,
     reps: logRepsInput.value,
   })
-  console.log(workoutState.liveExerciseData.log)
 
   if (workoutState.currentSet < workoutState.liveExerciseData.sets) {
     startTimer(workoutState.liveExerciseData.timer || 30, "set")
   } else {
+    workoutState.todaysLog.push(workoutState.liveExerciseData)
     moveToNextItem()
     displayCurrentWorkoutItem()
   }
@@ -420,11 +436,23 @@ function moveToNextItem() {
 function finishWorkout() {
   workoutState.active = false
   interactiveWorkoutModal.classList.remove("visible")
+
+  const today = Utils.getTodayString()
+  if (!appState.workoutLog) {
+    appState.workoutLog = {}
+  }
+  appState.workoutLog[today] = workoutState.todaysLog
+  Utils.saveData(loggedInUser, appState)
+
   Utils.showAlert(
     "Workout Complete!",
     "Great job! You've finished your workout for the day."
   )
-  localStorage.setItem("workoutCompleted", "true")
+  localStorage.setItem(
+    `workoutCompleted_${loggedInUser}`,
+    Utils.getTodayString()
+  )
+  applyWorkoutCompletionStyle()
 }
 
 async function initializeApp() {
@@ -445,9 +473,11 @@ async function initializeApp() {
       if (!appState.workoutTemplates) appState.workoutTemplates = {}
       if (!appState.workoutSchedule)
         appState.workoutSchedule = Array(7).fill(false)
+      if (!appState.workoutLog) appState.workoutLog = {}
     }
     renderWorkoutDays(appState.workoutSchedule)
     renderDailyWorkout()
+    applyWorkoutCompletionStyle()
   } catch (error) {
     console.error("Error fetching user data:", error)
     document.getElementById("workout-templates-container").innerHTML =

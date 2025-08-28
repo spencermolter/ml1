@@ -3,6 +3,7 @@ import * as Utils from "./utils.js"
 document.addEventListener("DOMContentLoaded", () => {
   // --- SETUP ---
   const mainContainer = document.querySelector(".container")
+  const foodLogCard = document.getElementById("food-log-card")
   const caloriesTotalEl = document.getElementById("calories-total")
   const proteinTotalEl = document.getElementById("protein-total")
   const carbsTotalEl = document.getElementById("carbs-total")
@@ -46,9 +47,39 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentMealIndex = null
 
   // --- RENDER & CALCULATION FUNCTIONS ---
+  function applyDietCompletionStyle() {
+    const totals = Utils.calculateTotals(appState)
+    const goals = appState.goals || {}
+    const checkCaloriesGoal = (total, goal) => {
+      if (goal <= 0) return false
+      const lowerBound = goal * 0.95
+      const upperBound = goal * 1.1
+      return total >= lowerBound && total <= upperBound
+    }
+    const checkProteinGoal = (total, goal) => {
+      if (goal <= 0) return false
+      const lowerBound = goal * 0.95
+      return total >= lowerBound
+    }
+    const dietGoalsMet =
+      checkCaloriesGoal(totals.calories, goals.calories) &&
+      checkProteinGoal(totals.protein, goals.protein)
+
+    if (dietGoalsMet) {
+      foodLogCard.classList.add("diet-complete-overlay")
+      if (!foodLogCard.querySelector(".completion-message")) {
+        const congratulations = document.createElement("div")
+        congratulations.className = "completion-message"
+        congratulations.innerHTML = `<h2>Diet Goals Met!</h2><p>Great job! You've hit your diet goals for the day.</p>`
+        foodLogCard.appendChild(congratulations)
+      }
+    }
+  }
+
   function renderPage() {
     if (!appState || !appState.goals) return
     renderMeals()
+    applyDietCompletionStyle()
   }
 
   function calculateTotals() {
@@ -270,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!appState.foodLog[today]) appState.foodLog[today] = []
     appState.foodLog[today][currentMealIndex].foods.push(newFood)
     Utils.saveData(loggedInUser, appState)
-    renderMeals()
+    renderPage()
     closeAddFoodModal()
   })
 
@@ -288,7 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!appState.presetFoods) appState.presetFoods = []
     appState.presetFoods.push(newFood)
     Utils.saveData(loggedInUser, appState)
-    renderMeals()
+    renderPage()
     closeAddFoodModal()
   })
 
@@ -301,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
     appState.goals.carbs = parseInt(editCarbsInput.value) || 0
     appState.goals.fat = parseInt(editFatInput.value) || 0
     Utils.saveData(loggedInUser, appState)
-    renderMeals()
+    renderPage()
     closeEditGoalsModal()
   })
 
@@ -325,7 +356,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     await Utils.loadNavbar(loggedInUser)
-
     fetch("/api/data")
       .then((response) => response.json())
       .then((data) => {
