@@ -79,10 +79,31 @@ export async function loadNavbar(loggedInUser) {
       const navHTML = await response.text()
       navPlaceholder.innerHTML = navHTML
 
-      document
-        .getElementById("logout-btn")
-        .addEventListener("click", () => logout(loggedInUser))
-      document.getElementById("username-display").textContent = loggedInUser
+      // Handle both desktop and mobile logout buttons
+      const logoutBtn = document.getElementById("logout-btn")
+      const logoutBtnMobile = document.getElementById("logout-btn-mobile")
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => logout(loggedInUser))
+      }
+
+      if (logoutBtnMobile) {
+        logoutBtnMobile.addEventListener("click", () => logout(loggedInUser))
+      }
+
+      // Set username in both desktop and mobile displays
+      const usernameDisplay = document.getElementById("username-display")
+      const usernameDisplayMobile = document.getElementById(
+        "username-display-mobile"
+      )
+
+      if (usernameDisplay) {
+        usernameDisplay.textContent = loggedInUser
+      }
+
+      if (usernameDisplayMobile) {
+        usernameDisplayMobile.textContent = loggedInUser
+      }
 
       // Hamburger Menu Functionality
       const hamburgerBtn = document.getElementById("hamburger-btn")

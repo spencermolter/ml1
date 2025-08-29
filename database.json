@@ -3,7 +3,7 @@
     {
       "username": "jason",
       "trackerData": {
-        "gymStreak": 9,
+        "gymStreak": -1,
         "foodLog": {
           "2025-08-28": [
             {
@@ -17,6 +17,12 @@
                   "fat": 200
                 }
               ]
+            }
+          ],
+          "2025-08-29": [
+            {
+              "mealName": "Breakfast",
+              "foods": []
             }
           ]
         },
@@ -57,13 +63,23 @@
               "weight": 3,
               "timer": 3
             }
+          ],
+          "Friday": [
+            {
+              "type": "exercise",
+              "name": "Bench",
+              "sets": 3,
+              "reps": 3,
+              "weight": 33,
+              "timer": 3
+            }
           ]
         },
         "workoutSchedule": [
           false,
           true,
           true,
-          true,
+          false,
           true,
           true,
           false
@@ -71,10 +87,10 @@
         "workoutLog": {
           "2025-08-28": []
         },
-        "dietCount": 13,
-        "lastDietLog": "2025-08-28",
-        "lastGymLog": "2025-08-28",
-        "lastCompletionDate": "2025-08-28"
+        "dietCount": 0,
+        "lastDietLog": null,
+        "lastGymLog": null,
+        "lastCompletionDate": null
       }
     },
     {

@@ -66,8 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
       checkProteinGoal(totals.protein, goals.protein)
 
     if (dietGoalsMet) {
+      // ONLY update the log date, DO NOT increment counters
+      // Counters are only incremented by the "Complete Day" button
       if (appState.lastDietLog !== Utils.getTodayString()) {
-        appState.dietCount++
         appState.lastDietLog = Utils.getTodayString()
         Utils.saveData(loggedInUser, appState)
       }
@@ -81,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .getElementById("undo-diet-log-btn")
           .addEventListener("click", () => {
             const todayStr = Utils.getTodayString()
-            appState.dietCount--
+            // Only reset the log date, don't touch counters
             appState.lastDietLog = null
             if (appState.lastCompletionDate === todayStr) {
               appState.lastCompletionDate = null
