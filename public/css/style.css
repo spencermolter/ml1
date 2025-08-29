@@ -64,28 +64,76 @@ header h1 { font-weight: 600; }
 .day-indicator.current-day { border: 2px solid var(--text-light); }
 
 /* Button Styles */
-.button-group { display: flex; justify-content: center; align-items: center; gap: 15px; }
-.log-button, .next-day-button, .skip-button, .meal-preset-btn, .edit-btn { border: none; border-radius: 8px; padding: 12px 24px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease-in-out; }
+.button-group { 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    gap: 15px; 
+}
+
+.log-button, .next-day-button, .skip-button, .meal-preset-btn, .edit-btn { 
+    border: none; 
+    border-radius: 8px; 
+    padding: 12px 24px; 
+    font-size: 16px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: all 0.2s ease-in-out; 
+}
+
 .log-button, #add-and-preset-btn, #add-to-meal-btn, .meal-preset-btn, #add-custom-meal-btn, #save-food-btn, #save-goals-btn {
     background-color: var(--accent-blue);
     color: var(--text-light);
 }
-.next-day-button { background-color: #777; color: var(--text-light); }
+
+.next-day-button { 
+    background-color: #777; 
+    color: var(--text-light); 
+}
+
 #complete-day-btn {
     background-color: var(--bg-light-1);
     color: var(--text-muted);
 }
+
 #complete-day-btn.active-green {
     background-color: #4CAF50;
     color: white;
 }
-.skip-button { background-color: var(--accent-red); color: var(--text-light); }
-.edit-btn { background-color: var(--accent-orange); color: var(--text-light); padding: 5px 10px; font-size: 14px; }
-.log-button:hover, .meal-preset-btn:hover, .next-day-button:hover, .skip-button:hover, .edit-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
-.log-button:disabled, .next-day-button:disabled { background-color: var(--bg-light-1); color: #777; cursor: not-allowed; transform: none; filter: none; }
-.logout-button { background-color: #777; color: var(--text-light); border: none; border-radius: 5px; padding: 8px 16px; font-size: 14px; cursor: pointer; transition: background-color 0.2s; }
-.logout-button:hover { background-color: #999; }
-.completion-status { color: var(--accent-blue); font-weight: 600; margin-left: 15px; }
+
+.skip-button { 
+    background-color: var(--accent-red); 
+    color: var(--text-light); 
+}
+
+.edit-btn { 
+    background-color: var(--accent-orange); 
+    color: var(--text-light); 
+    padding: 5px 10px; 
+    font-size: 14px; 
+}
+
+.log-button:hover, .meal-preset-btn:hover, .next-day-button:hover, .skip-button:hover, .edit-btn:hover { 
+    transform: translateY(-2px); 
+    filter: brightness(1.1); 
+}
+
+.log-button:disabled, .next-day-button:disabled { 
+    background-color: var(--bg-light-1); 
+    color: #777; 
+    cursor: not-allowed; 
+    transform: none; 
+    filter: none; 
+}
+
+.completion-status { 
+    color: var(--accent-blue); 
+    font-weight: 600; 
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+}
 
 /* Login Page Styles */
 .login-card { max-width: 400px; margin: 50px auto; text-align: center; }
@@ -290,7 +338,7 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
 #timer-view { text-align: center; }
 #timer-display { font-size: 6em; font-weight: 600; color: var(--accent-orange); margin: 20px 0; }
 
-/* Navigation Bar Styles */
+/* Navigation Bar Styles - Updated with logout in mobile menu */
 .main-nav {
     background-color: var(--bg-dark-2);
     border-radius: 12px;
@@ -298,16 +346,21 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
     margin-bottom: 25px;
     border: 1px solid var(--bg-light-1);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
 }
+
 .nav-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    min-height: 40px;
 }
+
 .nav-title {
     font-weight: 600;
     font-size: 1.2em;
@@ -315,25 +368,54 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
     flex-grow: 1;
     text-align: center;
 }
+
 .nav-links {
     display: flex;
     gap: 30px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
 }
+
 .nav-links a {
     color: var(--text-muted);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s;
 }
+
 .nav-links a:hover,
 .nav-links a.active {
     color: var(--accent-blue);
 }
+
 .nav-user {
     display: flex;
     align-items: center;
     gap: 15px;
 }
+
+.logout-button {
+    background-color: var(--accent-red);
+    color: var(--text-light);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.logout-button:hover {
+    background-color: #e6021f;
+}
+
+.username-display {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
 .hamburger-menu {
     display: none;
     flex-direction: column;
@@ -346,6 +428,34 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
     padding: 0;
     z-index: 10;
 }
+
+.hamburger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-light);
+    border-radius: 2px;
+}
+
+.nav-mobile-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 0 5px 0;
+    border-top: 1px solid var(--bg-light-1);
+    width: 100%;
+}
+
+.nav-mobile-user .logout-button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.nav-mobile-user .username-display {
+    font-size: 12px;
+}
+
 .hamburger-menu span {
     display: block;
     width: 100%;
@@ -357,14 +467,20 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
 /* --- Mobile Responsive Styles --- */
 @media (max-width: 768px) {
     .nav-top-bar {
-        justify-content: flex-start;
+        justify-content: center;
+        min-height: 40px;
     }
+    
     .hamburger-menu {
         display: flex;
+        position: absolute;
+        left: 15px;
     }
+    
     .nav-user {
-        margin-left: auto;
+        display: none;
     }
+    
     .nav-links {
         display: none;
         width: 100%;
@@ -372,15 +488,39 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
         align-items: center;
         gap: 0;
         margin-top: 15px;
+        max-height: 0;
+        transition: max-height 0.3s ease-in-out;
+        overflow: hidden;
+        box-sizing: border-box;
     }
+    
     .nav-links.active {
         display: flex;
+        max-height: 400px;
     }
+    
     .nav-links a {
         padding: 10px 0;
         width: 100%;
         text-align: center;
         border-top: 1px solid var(--bg-light-1);
+        box-sizing: border-box;
+    }
+    
+    .nav-mobile-user {
+        display: flex;
+    }
+    
+    /* Ensure the main nav container doesn't change width */
+    .main-nav {
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 769px) {
+    .nav-mobile-user {
+        display: none;
     }
 }
 

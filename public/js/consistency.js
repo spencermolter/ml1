@@ -52,7 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
       completeDayBtn.classList.remove("active-green")
     }
 
-    completionStatus.textContent = dayIsComplete ? "✅ Day Complete" : ""
+    // Update completion status message
+    if (dayIsComplete) {
+      completionStatus.textContent = "✅ Day Complete"
+      completionStatus.classList.add("completion-status")
+    } else {
+      completionStatus.textContent = ""
+      completionStatus.classList.remove("completion-status")
+    }
   }
 
   async function completeDay() {
