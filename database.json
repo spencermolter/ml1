@@ -147,12 +147,41 @@
       "username": "steven",
       "trackerData": {
         "gymStreak": 0,
-        "foodLog": {},
+        "foodLog": {
+          "2025-08-30": [
+            {
+              "mealName": "Breakfast",
+              "foods": [
+                {
+                  "name": "1",
+                  "calories": 1,
+                  "protein": 1,
+                  "carbs": 1,
+                  "fat": 1
+                }
+              ]
+            }
+          ],
+          "2025-08-31": [
+            {
+              "mealName": "Breakfast",
+              "foods": [
+                {
+                  "name": "6",
+                  "calories": 6,
+                  "protein": 6,
+                  "carbs": 6,
+                  "fat": 6
+                }
+              ]
+            }
+          ]
+        },
         "goals": {
-          "calories": 2000,
-          "protein": 150,
-          "carbs": 200,
-          "fat": 70
+          "calories": 12,
+          "protein": 12,
+          "carbs": 12,
+          "fat": 12
         },
         "presetFoods": [],
         "workoutTemplates": {},

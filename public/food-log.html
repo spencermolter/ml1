@@ -22,10 +22,50 @@
             </div>
             <div class="card-content">
                 <div class="daily-totals">
-                    <div class="total-item"><label>Calories</label><div class="progress-bar"><div id="calories-progress" class="progress"></div></div><span id="calories-total">0 / 2500</span></div>
-                    <div class="total-item"><label>Protein</label><div class="progress-bar"><div id="protein-progress" class="progress"></div></div><span id="protein-total">0g / 180g</span></div>
-                    <div class="total-item"><label>Carbs</label><div class="progress-bar"><div id="carbs-progress" class="progress"></div></div><span id="carbs-total">0g / 300g</span></div>
-                    <div class="total-item"><label>Fat</label><div class="progress-bar"><div id="fat-progress" class="progress"></div></div><span id="fat-total">0g / 70g</span></div>
+                    <div class="total-item">
+                        <label>Calories</label>
+                        <div class="circular-progress calories" id="calories-progress-circle">
+                            <svg>
+                                <circle class="progress-circle-bg" cx="40" cy="40" r="32"></circle>
+                                <circle class="progress-circle" cx="40" cy="40" r="32" id="calories-progress"></circle>
+                            </svg>
+                            <div class="progress-text" id="calories-progress-text">0%</div>
+                        </div>
+                        <div class="progress-summary" id="calories-total">0 / 2500</div>
+                    </div>
+                    <div class="total-item">
+                        <label>Protein</label>
+                        <div class="circular-progress protein" id="protein-progress-circle">
+                            <svg>
+                                <circle class="progress-circle-bg" cx="40" cy="40" r="32"></circle>
+                                <circle class="progress-circle" cx="40" cy="40" r="32" id="protein-progress"></circle>
+                            </svg>
+                            <div class="progress-text" id="protein-progress-text">0%</div>
+                        </div>
+                        <div class="progress-summary" id="protein-total">0g / 180g</div>
+                    </div>
+                    <div class="total-item">
+                        <label>Carbs</label>
+                        <div class="circular-progress carbs" id="carbs-progress-circle">
+                            <svg>
+                                <circle class="progress-circle-bg" cx="40" cy="40" r="32"></circle>
+                                <circle class="progress-circle" cx="40" cy="40" r="32" id="carbs-progress"></circle>
+                            </svg>
+                            <div class="progress-text" id="carbs-progress-text">0%</div>
+                        </div>
+                        <div class="progress-summary" id="carbs-total">0g / 300g</div>
+                    </div>
+                    <div class="total-item">
+                        <label>Fat</label>
+                        <div class="circular-progress fat" id="fat-progress-circle">
+                            <svg>
+                                <circle class="progress-circle-bg" cx="40" cy="40" r="32"></circle>
+                                <circle class="progress-circle" cx="40" cy="40" r="32" id="fat-progress"></circle>
+                            </svg>
+                            <div class="progress-text" id="fat-progress-text">0%</div>
+                        </div>
+                        <div class="progress-summary" id="fat-total">0g / 70g</div>
+                    </div>
                 </div>
                 <div id="meals-container"></div>
                 <button id="add-meal-btn" class="log-button">Add Meal</button>

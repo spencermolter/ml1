@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const proteinProgress = document.getElementById("protein-progress")
   const carbsProgress = document.getElementById("carbs-progress")
   const fatProgress = document.getElementById("fat-progress")
+  const caloriesProgressText = document.getElementById("calories-progress-text")
+  const proteinProgressText = document.getElementById("protein-progress-text")
+  const carbsProgressText = document.getElementById("carbs-progress-text")
+  const fatProgressText = document.getElementById("fat-progress-text")
   const mealsContainer = document.getElementById("meals-container")
   const addMealBtn = document.getElementById("add-meal-btn")
 
@@ -115,6 +119,15 @@ document.addEventListener("DOMContentLoaded", () => {
     applyDietCompletionStyle()
   }
 
+  function updateCircularProgress(progressElement, textElement, percentage) {
+    const circumference = 2 * Math.PI * 32 // radius = 32
+    const offset = circumference - (percentage / 100) * circumference
+
+    progressElement.style.strokeDasharray = circumference
+    progressElement.style.strokeDashoffset = offset
+    textElement.textContent = Math.round(percentage) + "%"
+  }
+
   function calculateTotals() {
     const todayLog = appState.foodLog?.[Utils.getTodayString()] || []
     let totals = { calories: 0, protein: 0, carbs: 0, fat: 0 }
@@ -133,22 +146,33 @@ document.addEventListener("DOMContentLoaded", () => {
     carbsTotalEl.textContent = `${totals.carbs}g / ${goals.carbs || 0}g`
     fatTotalEl.textContent = `${totals.fat}g / ${goals.fat || 0}g`
 
-    caloriesProgress.style.width = `${Math.min(
+    // Update circular progress bars
+    const caloriesPercentage = Math.min(
       100,
       (totals.calories / (goals.calories || 1)) * 100
-    )}%`
-    proteinProgress.style.width = `${Math.min(
+    )
+    const proteinPercentage = Math.min(
       100,
       (totals.protein / (goals.protein || 1)) * 100
-    )}%`
-    carbsProgress.style.width = `${Math.min(
+    )
+    const carbsPercentage = Math.min(
       100,
       (totals.carbs / (goals.carbs || 1)) * 100
-    )}%`
-    fatProgress.style.width = `${Math.min(
-      100,
-      (totals.fat / (goals.fat || 1)) * 100
-    )}%`
+    )
+    const fatPercentage = Math.min(100, (totals.fat / (goals.fat || 1)) * 100)
+
+    updateCircularProgress(
+      caloriesProgress,
+      caloriesProgressText,
+      caloriesPercentage
+    )
+    updateCircularProgress(
+      proteinProgress,
+      proteinProgressText,
+      proteinPercentage
+    )
+    updateCircularProgress(carbsProgress, carbsProgressText, carbsPercentage)
+    updateCircularProgress(fatProgress, fatProgressText, fatPercentage)
   }
 
   function renderMeals() {
