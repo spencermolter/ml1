@@ -51,11 +51,23 @@ header h1 { font-weight: 600; }
 
 /* Consistency Tracker Styles */
 .consistency-card { text-align: center; }
-.counters-container { display: flex; justify-content: space-around; margin: 20px 0; }
+.counters-container { 
+    display: flex; 
+    justify-content: space-around; 
+    margin: 20px 0;
+    gap: 40px;
+    align-items: center;
+}
+.counter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
 .counter-number { display: block; font-size: 60px; font-weight: 600; }
 #gym-streak-display { color: var(--accent-blue); }
 #diet-counter-display { color: var(--accent-orange); }
-.counter-label { font-size: 18px; color: var(--text-muted); }
+.counter-label { font-size: 18px; color: var(--text-muted); margin-top: 8px; }
 .motivation-quote { font-style: italic; color: var(--text-muted); margin-top: 20px; }
 .schedule-visualizer { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
 .day-indicator { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
@@ -516,6 +528,12 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
         position: relative;
         overflow: hidden;
     }
+
+    /* Make counters stack on mobile */
+    .counters-container {
+        flex-direction: column;
+        gap: 20px;
+    }
 }
 
 @media (min-width: 769px) {
@@ -525,10 +543,6 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
 }
 
 @media (max-width: 600px) {
-    .counters-container {
-        flex-direction: column;
-        gap: 20px;
-    }
     .button-group {
         flex-direction: column;
         align-items: stretch;

@@ -56,9 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (dayIsComplete) {
       completionStatus.textContent = "✅ Day Complete"
       completionStatus.classList.add("completion-status")
+      // Hide the complete day button once day is completed
+      completeDayBtn.style.display = "none"
     } else {
       completionStatus.textContent = ""
       completionStatus.classList.remove("completion-status")
+      completeDayBtn.style.display = "block"
     }
   }
 

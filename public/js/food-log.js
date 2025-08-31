@@ -76,11 +76,24 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!foodLogCard.querySelector(".completion-message")) {
         const congratulations = document.createElement("div")
         congratulations.className = "completion-message"
-        congratulations.innerHTML = `<h2>Diet Goals Met!</h2><p>Great job! You've hit your diet goals for the day.</p><button id="undo-diet-log-btn" class="log-button">Made a mistake?</button>`
+
+        // Check if day has been completed via the "Complete Day" button
+        const today = Utils.getTodayString()
+        const dayIsCompleted = appState.lastCompletionDate === today
+
+        let buttonHTML = ""
+        if (!dayIsCompleted) {
+          // Only show the "Made a mistake?" button if the day hasn't been completed
+          buttonHTML = `<button id="undo-diet-log-btn" class="log-button">Made a mistake?</button>`
+        }
+
+        congratulations.innerHTML = `<h2>Diet Goals Met!</h2><p>Great job! You've hit your diet goals for the day.</p>${buttonHTML}`
         foodLogCard.appendChild(congratulations)
-        document
-          .getElementById("undo-diet-log-btn")
-          .addEventListener("click", () => {
+
+        // Only add event listener if button exists
+        const undoButton = document.getElementById("undo-diet-log-btn")
+        if (undoButton) {
+          undoButton.addEventListener("click", () => {
             const todayStr = Utils.getTodayString()
             // Only reset the log date, don't touch counters
             appState.lastDietLog = null
@@ -91,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
             foodLogCard.classList.remove("diet-complete-overlay")
             congratulations.remove()
           })
+        }
       }
     }
   }

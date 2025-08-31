@@ -31,23 +31,18 @@ app.post("/api/login", (req, res) => {
   const db = readData()
   let user = db.users.find((u) => u.username === username)
 
+  // Check if user exists in the database
   if (!user) {
-    user = {
-      username: username,
-      trackerData: {
-        gymStreak: 0,
-        dietCount: 0,
-        lastCompletionDate: null,
-        foodLog: {},
-        goals: { calories: 2000, protein: 150, carbs: 250, fat: 65 },
-        workoutSchedule: [false, false, false, false, false, false, false],
-        workoutTemplates: {},
-      },
-    }
-    db.users.push(user)
+    res
+      .status(401)
+      .json({
+        status: "error",
+        message:
+          "Username not found. Please check your username and try again.",
+      })
+    return
   }
 
-  writeData(db)
   res.json({ status: "success", message: "Logged in successfully" })
 })
 

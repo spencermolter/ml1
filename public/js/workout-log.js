@@ -82,14 +82,25 @@ function applyWorkoutCompletionStyle() {
     if (!dailyWorkoutCard.querySelector(".completion-message")) {
       const congratulations = document.createElement("div")
       congratulations.className = "completion-message"
-      congratulations.innerHTML = `<h2>Workout Complete!</h2><p>Great job! You've crushed your workout for the day.</p><button id="undo-workout-log-btn" class="log-button">Made a mistake?</button>`
+
+      // Check if day has been completed via the "Complete Day" button
+      const dayIsCompleted = appState.lastCompletionDate === today
+
+      let buttonHTML = ""
+      if (!dayIsCompleted) {
+        // Only show the "Made a mistake?" button if the day hasn't been completed
+        buttonHTML = `<button id="undo-workout-log-btn" class="log-button">Made a mistake?</button>`
+      }
+
+      congratulations.innerHTML = `<h2>Workout Complete!</h2><p>Great job! You've crushed your workout for the day.</p>${buttonHTML}`
       dailyWorkoutCard.appendChild(congratulations)
-      document
-        .getElementById("undo-workout-log-btn")
-        .addEventListener("click", () => {
+
+      // Only add event listener if button exists
+      const undoButton = document.getElementById("undo-workout-log-btn")
+      if (undoButton) {
+        undoButton.addEventListener("click", () => {
           const today = Utils.getTodayString()
           delete appState.workoutLog[today]
-          appState.gymStreak--
           appState.lastGymLog = null
           if (appState.lastCompletionDate === today) {
             appState.lastCompletionDate = null
@@ -98,6 +109,7 @@ function applyWorkoutCompletionStyle() {
           dailyWorkoutCard.classList.remove("workout-complete-overlay")
           congratulations.remove()
         })
+      }
     }
   }
 }
@@ -458,7 +470,6 @@ function finishWorkout() {
   appState.workoutLog[today] = workoutState.todaysLog
 
   if (appState.lastGymLog !== today) {
-    appState.gymStreak++
     appState.lastGymLog = today
   }
 

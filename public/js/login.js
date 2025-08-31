@@ -23,12 +23,21 @@ document.addEventListener("DOMContentLoaded", () => {
         currentDayIndex: currentDayIndex,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          // Handle non-200 status codes
+          return response.json().then((data) => {
+            throw new Error(data.message || "Login failed")
+          })
+        }
+      })
       .then((data) => {
         if (data.status === "success") {
           // If login is successful, save username in localStorage
           localStorage.setItem("loggedInUser", username)
-          // Redirect to the main food log page
+          // Redirect to the main app page
           window.location.href = "/consistency.html"
         } else {
           errorMessage.textContent = data.message
@@ -36,7 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((error) => {
         console.error("Login error:", error)
-        errorMessage.textContent = "An error occurred. Please try again."
+        errorMessage.textContent =
+          error.message || "An error occurred. Please try again."
       })
   })
 })

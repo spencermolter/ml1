@@ -3,8 +3,23 @@
     {
       "username": "spencer",
       "trackerData": {
-        "gymStreak": 0,
-        "foodLog": {},
+        "gymStreak": 4,
+        "foodLog": {
+          "2025-08-30": [
+            {
+              "mealName": "Breakfast",
+              "foods": [
+                {
+                  "name": "Steak",
+                  "calories": 2000,
+                  "protein": 150,
+                  "carbs": 200,
+                  "fat": 200
+                }
+              ]
+            }
+          ]
+        },
         "goals": {
           "calories": 2000,
           "protein": 150,
@@ -12,21 +27,34 @@
           "fat": 70
         },
         "presetFoods": [],
-        "workoutTemplates": {},
+        "workoutTemplates": {
+          "Saturday": [
+            {
+              "type": "exercise",
+              "name": "Bench",
+              "sets": 3,
+              "reps": 3,
+              "weight": 3,
+              "timer": 3
+            }
+          ]
+        },
         "workoutSchedule": [
           false,
           false,
           false,
           false,
           false,
-          false,
+          true,
           false
         ],
-        "workoutLog": {},
-        "dietCount": 0,
-        "lastDietLog": null,
-        "lastGymLog": null,
-        "lastCompletionDate": null
+        "workoutLog": {
+          "2025-08-30": []
+        },
+        "dietCount": 3,
+        "lastDietLog": "2025-08-30",
+        "lastGymLog": "2025-08-30",
+        "lastCompletionDate": "2025-08-30"
       }
     },
     {
@@ -61,30 +89,58 @@
     {
       "username": "chris",
       "trackerData": {
-        "gymStreak": 0,
-        "foodLog": {},
+        "gymStreak": 1,
+        "foodLog": {
+          "2025-08-30": [
+            {
+              "mealName": "Breakfast",
+              "foods": [
+                {
+                  "name": "1",
+                  "calories": 1,
+                  "protein": 1,
+                  "carbs": 1,
+                  "fat": 1
+                }
+              ]
+            }
+          ]
+        },
         "goals": {
-          "calories": 2000,
-          "protein": 150,
-          "carbs": 200,
-          "fat": 70
+          "calories": 1,
+          "protein": 1,
+          "carbs": 1,
+          "fat": 1
         },
         "presetFoods": [],
-        "workoutTemplates": {},
+        "workoutTemplates": {
+          "Saturday": [
+            {
+              "type": "exercise",
+              "name": "1",
+              "sets": 1,
+              "reps": 1,
+              "weight": 1,
+              "timer": 1
+            }
+          ]
+        },
         "workoutSchedule": [
           false,
           false,
           false,
           false,
           false,
-          false,
+          true,
           false
         ],
-        "workoutLog": {},
-        "dietCount": 0,
-        "lastDietLog": null,
-        "lastGymLog": null,
-        "lastCompletionDate": null
+        "workoutLog": {
+          "2025-08-30": []
+        },
+        "dietCount": 1,
+        "lastDietLog": "2025-08-30",
+        "lastGymLog": "2025-08-30",
+        "lastCompletionDate": "2025-08-30"
       }
     },
     {
