@@ -18,6 +18,20 @@
                 }
               ]
             }
+          ],
+          "2025-09-04": [
+            {
+              "mealName": "Breakfast",
+              "foods": [
+                {
+                  "name": "2",
+                  "calories": 1900,
+                  "protein": 120,
+                  "carbs": 100,
+                  "fat": 20
+                }
+              ]
+            }
           ]
         },
         "goals": {
