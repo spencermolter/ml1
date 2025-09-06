@@ -120,12 +120,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateCircularProgress(progressElement, textElement, percentage) {
-    const circumference = 2 * Math.PI * 32 // radius = 32
-    const offset = circumference - (percentage / 100) * circumference
+    const radius = 35 // Updated to match the new SVG radius (r="35")
+    const circumference = 2 * Math.PI * radius
 
-    progressElement.style.strokeDasharray = circumference
-    progressElement.style.strokeDashoffset = offset
-    textElement.textContent = Math.round(percentage) + "%"
+    // Handle 0% case to hide circle completely
+    if (percentage === 0) {
+      progressElement.style.strokeDasharray = circumference
+      progressElement.style.strokeDashoffset = circumference
+      textElement.textContent = "0%"
+    } else {
+      const offset = circumference - (percentage / 100) * circumference
+      progressElement.style.strokeDasharray = circumference
+      progressElement.style.strokeDashoffset = offset
+      textElement.textContent = Math.round(percentage) + "%"
+    }
   }
 
   function calculateTotals() {

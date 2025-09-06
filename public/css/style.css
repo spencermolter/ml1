@@ -182,7 +182,13 @@ header h1 { font-weight: 600; }
 .total-item label { 
     font-weight: 600; 
     margin-bottom: 10px; 
-    font-size: 16px;
+    font-size: 17px; /* Increased from 16px */
+}
+
+@media (max-width: 600px) {
+    .total-item label {
+        font-size: 16px;
+    }
 }
 
 /* Responsive Circular Progress Bars - FIXED VERSION */
@@ -190,6 +196,9 @@ header h1 { font-weight: 600; }
     position: relative;
     margin: 15px 0; /* Increased margin for better spacing */
     flex-shrink: 0; /* Prevent shrinking */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Large screens - bigger circles with more padding */
@@ -266,16 +275,17 @@ header h1 { font-weight: 600; }
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 11px;
+    font-size: 14px; /* Increased from 11px */
     font-weight: 600;
     text-align: center;
     line-height: 1.2;
+    pointer-events: none; /* Prevent text from interfering with interactions */
 }
 
 /* Responsive text size for progress circles */
 @media (min-width: 1200px) {
     .circular-progress .progress-text {
-        font-size: 13px;
+        font-size: 16px; /* Increased from 13px */
     }
     .circular-progress .progress-circle-bg,
     .circular-progress .progress-circle {
@@ -285,7 +295,7 @@ header h1 { font-weight: 600; }
 
 @media (max-width: 600px) {
     .circular-progress .progress-text {
-        font-size: 10px;
+        font-size: 12px; /* Increased from 10px */
     }
     .circular-progress .progress-circle-bg,
     .circular-progress .progress-circle {
@@ -298,27 +308,31 @@ header h1 { font-weight: 600; }
 .circular-progress.carbs .progress-circle { stroke: var(--accent-purple); }
 .circular-progress.fat .progress-circle { stroke: var(--accent-orange); }
 
-/* Ensure progress summary has proper spacing */
+/* Ensure progress summary has proper spacing and larger font */
 .progress-summary { 
-    font-size: 13px; 
+    font-size: 15px; /* Increased from 13px */
     color: var(--text-muted); 
     margin-top: 8px;
     white-space: nowrap; /* Prevent text wrapping */
+    font-weight: 500; /* Added weight for better readability */
 }
 
 /* Mobile responsive adjustments for progress summary */
 @media (max-width: 600px) {
     .progress-summary {
-        font-size: 11px;
+        font-size: 13px; /* Increased from 11px */
         margin-top: 6px;
     }
 }
 
 @media (max-width: 480px) {
     .progress-summary {
-        font-size: 10px;
+        font-size: 12px; /* Increased from 10px */
     }
 }
+
+#meals-container { margin: 20px 0; }
+.meal-card { background-color: var(--bg-light-1); border-radius: 5px; padding: 15px; margin-bottom: 15px; }
 
 #meals-container { margin: 20px 0; }
 .meal-card { background-color: var(--bg-light-1); border-radius: 5px; padding: 15px; margin-bottom: 15px; }
