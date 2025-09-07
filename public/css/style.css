@@ -266,29 +266,34 @@ select:focus {
     overflow: visible; /* Ensure SVG doesn't clip */
 }
 
-.circular-progress .progress-circle-bg {
+.circular-progress .progress-circle-bg, .circular-progress .progress-circle {
     fill: none;
+    stroke-width: 8;
+}
+
+.circular-progress .progress-circle-bg {
     stroke: #555;
-    stroke-width: 5; /* Slightly thinner stroke */
 }
 
 .circular-progress .progress-circle {
-    fill: none;
-    stroke-width: 5; /* Slightly thinner stroke */
     stroke-linecap: round;
     transition: stroke-dashoffset 0.3s ease;
 }
 
 .circular-progress .progress-text {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 14px; /* Increased from 11px */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
     font-weight: 600;
     text-align: center;
-    line-height: 1.2;
-    pointer-events: none; /* Prevent text from interfering with interactions */
+    line-height: 1;
+    pointer-events: none;
 }
 
 /* Responsive text size for progress circles */
@@ -298,7 +303,7 @@ select:focus {
     }
     .circular-progress .progress-circle-bg,
     .circular-progress .progress-circle {
-        stroke-width: 6;
+        stroke-width: 10;
     }
 }
 
@@ -308,7 +313,7 @@ select:focus {
     }
     .circular-progress .progress-circle-bg,
     .circular-progress .progress-circle {
-        stroke-width: 4;
+        stroke-width: 6;
     }
 }
 
