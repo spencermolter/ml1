@@ -19,6 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const mealsContainer = document.getElementById("meals-container")
   const addMealBtn = document.getElementById("add-meal-btn")
 
+  // Hydration DOM elements
+  const hydrationCard = document.querySelector(".hydration-card")
+  const hydrationSummary = document.getElementById("hydration-summary")
+  const hydrationProgressFill = document.getElementById(
+    "hydration-progress-fill"
+  )
+  const hydrationInput = document.getElementById("hydration-input")
+  const logWaterBtn = document.getElementById("log-water-btn")
+  // ADDED A DIRECT SELECTOR FOR THE BADGE
+  const hydrationCompleteBadge = document.getElementById(
+    "hydration-complete-badge"
+  )
+
   // Modals
   const addFoodModal = document.getElementById("add-food-modal")
   const modalTitle = document.getElementById("modal-title")
@@ -44,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const editProteinInput = document.getElementById("edit-protein-input")
   const editCarbsInput = document.getElementById("edit-carbs-input")
   const editFatInput = document.getElementById("edit-fat-input")
+  const editHydrationInput = document.getElementById("edit-hydration-input")
 
   // --- STATE ---
   let loggedInUser = null
@@ -52,7 +66,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- RENDER & CALCULATION FUNCTIONS ---
   function applyDietCompletionStyle() {
-    const totals = Utils.calculateTotals(appState)
+    const today = Utils.getTodayString()
+    const todayLog = appState.foodLog?.[today] || []
+    let totals = { calories: 0, protein: 0, carbs: 0, fat: 0 }
+    todayLog.forEach((meal) => {
+      meal.foods.forEach((food) => {
+        totals.calories += food.calories || 0
+        totals.protein += food.protein || 0
+        totals.carbs += food.carbs || 0
+        totals.fat += food.fat || 0
+      })
+    })
+
     const goals = appState.goals || {}
     const checkCaloriesGoal = (total, goal) => {
       if (goal <= 0) return false
@@ -70,38 +95,26 @@ document.addEventListener("DOMContentLoaded", () => {
       checkProteinGoal(totals.protein, goals.protein)
 
     if (dietGoalsMet) {
-      // ONLY update the log date, DO NOT increment counters
-      // Counters are only incremented by the "Complete Day" button
-      if (appState.lastDietLog !== Utils.getTodayString()) {
-        appState.lastDietLog = Utils.getTodayString()
+      if (appState.lastDietLog !== today) {
+        appState.lastDietLog = today
         Utils.saveData(loggedInUser, appState)
       }
       foodLogCard.classList.add("diet-complete-overlay")
       if (!foodLogCard.querySelector(".completion-message")) {
         const congratulations = document.createElement("div")
         congratulations.className = "completion-message"
-
-        // Check if day has been completed via the "Complete Day" button
-        const today = Utils.getTodayString()
         const dayIsCompleted = appState.lastCompletionDate === today
-
         let buttonHTML = ""
         if (!dayIsCompleted) {
-          // Only show the "Made a mistake?" button if the day hasn't been completed
           buttonHTML = `<button id="undo-diet-log-btn" class="log-button">Made a mistake?</button>`
         }
-
         congratulations.innerHTML = `<h2>Diet Goals Met!</h2><p>Great job! You've hit your diet goals for the day.</p>${buttonHTML}`
         foodLogCard.appendChild(congratulations)
-
-        // Only add event listener if button exists
         const undoButton = document.getElementById("undo-diet-log-btn")
         if (undoButton) {
           undoButton.addEventListener("click", () => {
-            const todayStr = Utils.getTodayString()
-            // Only reset the log date, don't touch counters
             appState.lastDietLog = null
-            if (appState.lastCompletionDate === todayStr) {
+            if (appState.lastCompletionDate === today) {
               appState.lastCompletionDate = null
             }
             Utils.saveData(loggedInUser, appState)
@@ -113,17 +126,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function renderHydration() {
+    const today = Utils.getTodayString()
+    const currentHydration = appState.dailyHydration?.[today] || 0
+    const hydrationGoal = appState.goals?.hydration || 0
+    const calculationGoal = hydrationGoal > 0 ? hydrationGoal : 1
+
+    hydrationSummary.textContent = `${currentHydration} / ${hydrationGoal} oz`
+
+    const percentage = Math.min(100, (currentHydration / calculationGoal) * 100)
+    hydrationProgressFill.style.width = `${percentage}%`
+
+    // --- LOGIC UPDATED TO DIRECTLY MANIPULATE STYLE ---
+    if (currentHydration >= hydrationGoal && hydrationGoal > 0) {
+      hydrationCard.classList.add("goal-met")
+      hydrationCompleteBadge.style.display = "inline-block" // Directly show the badge
+    } else {
+      hydrationCard.classList.remove("goal-met")
+      hydrationCompleteBadge.style.display = "none" // Directly hide the badge
+    }
+  }
+
   function renderPage() {
     if (!appState || !appState.goals) return
     renderMeals()
+    renderHydration()
     applyDietCompletionStyle()
   }
 
   function updateCircularProgress(progressElement, textElement, percentage) {
-    const radius = 35 // Updated to match the new SVG radius (r="35")
+    const radius = 35
     const circumference = 2 * Math.PI * radius
-
-    // Handle 0% case to hide circle completely
     if (percentage === 0) {
       progressElement.style.strokeDasharray = circumference
       progressElement.style.strokeDashoffset = circumference
@@ -154,7 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
     carbsTotalEl.textContent = `${totals.carbs}g / ${goals.carbs || 0}g`
     fatTotalEl.textContent = `${totals.fat}g / ${goals.fat || 0}g`
 
-    // Update circular progress bars
     const caloriesPercentage = Math.min(
       100,
       (totals.calories / (goals.calories || 1)) * 100
@@ -192,19 +224,19 @@ document.addEventListener("DOMContentLoaded", () => {
       let foodItemsHTML = ""
       meal.foods.forEach((food, foodIndex) => {
         foodItemsHTML += `<li class="food-item">
-                    <button class="info-btn" data-meal-index="${mealIndex}" data-food-index="${foodIndex}">ⓘ</button>
-                    <span class="food-name">${food.name}</span>
-                    <button class="delete-btn delete-food-btn" data-meal-index="${mealIndex}" data-food-index="${foodIndex}">&times;</button>
-                </li>`
+                                        <button class="info-btn" data-meal-index="${mealIndex}" data-food-index="${foodIndex}">ⓘ</button>
+                                        <span class="food-name">${food.name}</span>
+                                        <button class="delete-btn delete-food-btn" data-meal-index="${mealIndex}" data-food-index="${foodIndex}">&times;</button>
+                                    </li>`
       })
       mealCard.innerHTML = `<div class="meal-header">
-                <div class="meal-header-actions">
-                    <h3>${meal.mealName}</h3>
-                    <button class="log-button add-food-btn" data-meal-index="${mealIndex}">Add Food</button>
-                </div>
-                <button class="delete-btn delete-meal-btn" data-meal-index="${mealIndex}">&times;</button>
-            </div>
-            <ul class="food-list">${foodItemsHTML}</ul>`
+                                        <div class="meal-header-actions">
+                                            <h3>${meal.mealName}</h3>
+                                            <button class="log-button add-food-btn" data-meal-index="${mealIndex}">Add Food</button>
+                                        </div>
+                                        <button class="delete-btn delete-meal-btn" data-meal-index="${mealIndex}">&times;</button>
+                                    </div>
+                                    <ul class="food-list">${foodItemsHTML}</ul>`
       mealsContainer.appendChild(mealCard)
     })
     calculateTotals()
@@ -240,9 +272,9 @@ document.addEventListener("DOMContentLoaded", () => {
         presetFoodSelect.appendChild(option)
       })
     }
-
     addFoodModal.classList.add("visible")
   }
+
   function closeAddFoodModal() {
     addFoodModal.classList.remove("visible")
     foodNameInput.value = ""
@@ -252,15 +284,18 @@ document.addEventListener("DOMContentLoaded", () => {
     fatInput.value = ""
     currentMealIndex = null
   }
+
   function openEditGoalsModal() {
     if (appState.goals) {
       editCaloriesInput.value = appState.goals.calories
       editProteinInput.value = appState.goals.protein
       editCarbsInput.value = appState.goals.carbs
       editFatInput.value = appState.goals.fat
+      editHydrationInput.value = appState.goals.hydration
     }
     editGoalsModal.classList.add("visible")
   }
+
   function closeEditGoalsModal() {
     editGoalsModal.classList.remove("visible")
   }
@@ -272,12 +307,14 @@ document.addEventListener("DOMContentLoaded", () => {
   closeMealModalBtn.addEventListener("click", () =>
     addMealModal.classList.remove("visible")
   )
+
   mealPresetBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       addNewMeal(btn.textContent)
       addMealModal.classList.remove("visible")
     })
   })
+
   addCustomMealBtn.addEventListener("click", () => {
     const mealName = customMealNameInput.value.trim()
     if (mealName) {
@@ -391,14 +428,38 @@ document.addEventListener("DOMContentLoaded", () => {
   closeFoodModalBtn.addEventListener("click", closeAddFoodModal)
   editGoalsBtn.addEventListener("click", openEditGoalsModal)
   closeGoalsModalBtn.addEventListener("click", closeEditGoalsModal)
+
   saveGoalsBtn.addEventListener("click", () => {
     appState.goals.calories = parseInt(editCaloriesInput.value) || 0
     appState.goals.protein = parseInt(editProteinInput.value) || 0
     appState.goals.carbs = parseInt(editCarbsInput.value) || 0
     appState.goals.fat = parseInt(editFatInput.value) || 0
+    appState.goals.hydration = parseInt(editHydrationInput.value) || 0
     Utils.saveData(loggedInUser, appState)
     renderPage()
     closeEditGoalsModal()
+  })
+
+  logWaterBtn.addEventListener("click", () => {
+    const amount = parseInt(hydrationInput.value)
+    if (!amount || amount <= 0) {
+      Utils.showAlert(
+        "Invalid Amount",
+        "Please enter a positive number for ounces."
+      )
+      return
+    }
+    const today = Utils.getTodayString()
+    if (!appState.dailyHydration) {
+      appState.dailyHydration = {}
+    }
+    if (!appState.dailyHydration[today]) {
+      appState.dailyHydration[today] = 0
+    }
+    appState.dailyHydration[today] += amount
+    Utils.saveData(loggedInUser, appState)
+    renderHydration()
+    hydrationInput.value = ""
   })
 
   document
@@ -432,7 +493,10 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!appState.foodLog) appState.foodLog = {}
           if (!appState.goals) appState.goals = {}
           if (!appState.presetFoods) appState.presetFoods = []
-
+          if (appState.goals.hydration === undefined) {
+            appState.goals.hydration = 64
+          }
+          if (!appState.dailyHydration) appState.dailyHydration = {}
           renderPage()
         } else {
           Utils.showAlert("Error", "Could not find user data. Logging out.")

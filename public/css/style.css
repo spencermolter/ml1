@@ -94,7 +94,7 @@ header h1 { font-weight: 600; }
     transition: all 0.2s ease-in-out; 
 }
 
-.log-button, #add-and-preset-btn, #add-to-meal-btn, .meal-preset-btn, #add-custom-meal-btn, #save-food-btn, #save-goals-btn {
+.log-button, #add-and-preset-btn, #add-to-meal-btn, #add-custom-meal-btn, #save-food-btn, #save-goals-btn {
     background-color: var(--accent-blue);
     color: var(--text-light);
 }
@@ -137,6 +137,15 @@ header h1 { font-weight: 600; }
     cursor: not-allowed; 
     transform: none; 
     filter: none; 
+}
+
+/* Custom Focus Style for Inputs */
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
 }
 
 .completion-status { 
@@ -334,9 +343,6 @@ header h1 { font-weight: 600; }
 #meals-container { margin: 20px 0; }
 .meal-card { background-color: var(--bg-light-1); border-radius: 5px; padding: 15px; margin-bottom: 15px; }
 
-#meals-container { margin: 20px 0; }
-.meal-card { background-color: var(--bg-light-1); border-radius: 5px; padding: 15px; margin-bottom: 15px; }
-
 .meal-header {
     display: flex;
     justify-content: space-between;
@@ -378,6 +384,123 @@ header h1 { font-weight: 600; }
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+/* Styles for Hydration Tracker */
+.hydration-card {
+    background-color: var(--bg-light-1);
+    border-radius: 5px;
+    padding: 15px 20px;
+    margin: 25px 0;
+    position: relative;
+}
+
+/* Container for the hydration title and its completion badge */
+.hydration-title-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* The completion badge itself */
+.completion-badge {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.2);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+}
+
+/* Make the progress bar green when the goal is met */
+.hydration-card.goal-met .linear-progress-bar .progress-fill {
+    background-color: #4CAF50;
+}
+
+.hydration-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.hydration-header h3 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.hydration-header span {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.linear-progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: var(--bg-dark-2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.linear-progress-bar .progress-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #1e90ff;
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out;
+}
+
+.hydration-log-form {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.hydration-log-form input {
+    flex: 1 1 80px;
+    max-width: 120px;
+    padding: 0 10px;
+    height: 34px;
+    background-color: var(--bg-dark-1);
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: var(--text-light);
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.hydration-log-form button {
+    padding: 0 18px;
+    height: 34px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 480px) {
+    .hydration-log-form {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .hydration-log-form input {
+        max-width: 100%;
+        width: 100%;
+    }
+    .hydration-log-form button {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+.hydration-complete > *:not(.completion-message) {
+    filter: blur(8px);
+    pointer-events: none;
 }
 
 /* Modal Styles */
@@ -449,7 +572,7 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
     left: 50%;
     transform: translate(-50%, -50%);
     color: var(--text-light);
-    font-size: 1.3 rem;
+    font-size: 1.3rem;
     font-weight: 600;
     text-align: center;
     width: 80%;
@@ -689,16 +812,13 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
         display: flex;
     }
     
-    /* Ensure the main nav container doesn't change width */
     .main-nav {
         position: relative;
         overflow: hidden;
     }
 
-    /* Make counters stack on mobile */
     .counters-container {
         gap: 20px;
-        /* Keep side-by-side layout on mobile too */
     }
 }
 
@@ -714,9 +834,8 @@ hr.modal-divider { border: 0; border-top: 1px solid var(--bg-light-1); margin: 2
         align-items: stretch;
     }
     
-    /* Mobile layout for macros - 2x2 grid with smaller elements */
     .daily-totals {
-        grid-template-columns: 1fr 1fr; /* Explicit 2x2 for small screens */
+        grid-template-columns: 1fr 1fr;
         gap: 10px;
     }
     
