@@ -78,9 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Only show remove button if there's water logged
     if (currentHydration > 0) {
-      const hydrationControls = document.querySelector(
-        ".hydration-controls-container"
-      )
+      const hydrationLogForm = document.querySelector(".hydration-log-form")
 
       // Check if remove button already exists
       if (!document.getElementById("remove-water-btn")) {
@@ -88,6 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
         removeBtn.id = "remove-water-btn"
         removeBtn.className = "log-button"
         removeBtn.style.backgroundColor = "var(--accent-red)"
+        removeBtn.style.minWidth = "120px"
+        removeBtn.style.height = "40px"
         removeBtn.textContent = "Remove Water"
 
         removeBtn.addEventListener("click", () => {
@@ -113,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
           updateCounterButtons()
         })
 
-        hydrationControls.appendChild(removeBtn)
+        // Add the remove button to the hydration log form
+        hydrationLogForm.appendChild(removeBtn)
       }
     } else {
       // Remove the button if no water is logged
