@@ -26,8 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "hydration-progress-fill"
   )
   const hydrationInput = document.getElementById("hydration-input")
+  const hydrationMinusBtn = document.getElementById("hydration-minus-btn")
+  const hydrationPlusBtn = document.getElementById("hydration-plus-btn")
   const logWaterBtn = document.getElementById("log-water-btn")
-  // ADDED A DIRECT SELECTOR FOR THE BADGE
   const hydrationCompleteBadge = document.getElementById(
     "hydration-complete-badge"
   )
@@ -63,6 +64,65 @@ document.addEventListener("DOMContentLoaded", () => {
   let loggedInUser = null
   let appState = {}
   let currentMealIndex = null
+
+  // --- HYDRATION COUNTER FUNCTIONS ---
+  function updateCounterButtons() {
+    const currentValue = parseInt(hydrationInput.value) || 0
+    hydrationMinusBtn.disabled = currentValue <= 0
+    hydrationPlusBtn.disabled = currentValue >= 99
+  }
+
+  function addRemoveWaterButton() {
+    const today = Utils.getTodayString()
+    const currentHydration = appState.dailyHydration?.[today] || 0
+
+    // Only show remove button if there's water logged
+    if (currentHydration > 0) {
+      const hydrationControls = document.querySelector(
+        ".hydration-controls-container"
+      )
+
+      // Check if remove button already exists
+      if (!document.getElementById("remove-water-btn")) {
+        const removeBtn = document.createElement("button")
+        removeBtn.id = "remove-water-btn"
+        removeBtn.className = "log-button"
+        removeBtn.style.backgroundColor = "var(--accent-red)"
+        removeBtn.textContent = "Remove Water"
+
+        removeBtn.addEventListener("click", () => {
+          const removeAmount = parseInt(hydrationInput.value)
+          if (!removeAmount || removeAmount <= 0) {
+            Utils.showAlert(
+              "Invalid Amount",
+              "Please enter a positive number for ounces to remove."
+            )
+            return
+          }
+
+          const today = Utils.getTodayString()
+          const currentAmount = appState.dailyHydration?.[today] || 0
+          const newAmount = Math.max(0, currentAmount - removeAmount)
+
+          appState.dailyHydration[today] = newAmount
+          Utils.saveData(loggedInUser, appState)
+          renderHydration()
+
+          // Reset input
+          hydrationInput.value = "8"
+          updateCounterButtons()
+        })
+
+        hydrationControls.appendChild(removeBtn)
+      }
+    } else {
+      // Remove the button if no water is logged
+      const removeBtn = document.getElementById("remove-water-btn")
+      if (removeBtn) {
+        removeBtn.remove()
+      }
+    }
+  }
 
   // --- RENDER & CALCULATION FUNCTIONS ---
   function applyDietCompletionStyle() {
@@ -137,14 +197,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const percentage = Math.min(100, (currentHydration / calculationGoal) * 100)
     hydrationProgressFill.style.width = `${percentage}%`
 
-    // --- LOGIC UPDATED TO DIRECTLY MANIPULATE STYLE ---
     if (currentHydration >= hydrationGoal && hydrationGoal > 0) {
       hydrationCard.classList.add("goal-met")
-      hydrationCompleteBadge.style.display = "inline-block" // Directly show the badge
+      hydrationCompleteBadge.style.display = "inline-block"
     } else {
       hydrationCard.classList.remove("goal-met")
-      hydrationCompleteBadge.style.display = "none" // Directly hide the badge
+      hydrationCompleteBadge.style.display = "none"
     }
+
+    // Add or remove the remove water button
+    addRemoveWaterButton()
   }
 
   function renderPage() {
@@ -300,7 +362,55 @@ document.addEventListener("DOMContentLoaded", () => {
     editGoalsModal.classList.remove("visible")
   }
 
-  // --- EVENT LISTENERS ---
+  // --- HYDRATION EVENT LISTENERS ---
+  hydrationPlusBtn.addEventListener("click", () => {
+    const currentValue = parseInt(hydrationInput.value) || 0
+    const newValue = Math.min(99, currentValue + 1)
+    hydrationInput.value = newValue
+    updateCounterButtons()
+  })
+
+  hydrationMinusBtn.addEventListener("click", () => {
+    const currentValue = parseInt(hydrationInput.value) || 0
+    const newValue = Math.max(0, currentValue - 1)
+    hydrationInput.value = newValue
+    updateCounterButtons()
+  })
+
+  hydrationInput.addEventListener("input", () => {
+    const value = parseInt(hydrationInput.value) || 0
+    hydrationInput.value = Math.max(0, Math.min(99, value))
+    updateCounterButtons()
+  })
+
+  logWaterBtn.addEventListener("click", () => {
+    const amount = parseInt(hydrationInput.value)
+    if (!amount || amount <= 0) {
+      Utils.showAlert(
+        "Invalid Amount",
+        "Please enter a positive number for ounces."
+      )
+      return
+    }
+
+    const today = Utils.getTodayString()
+    if (!appState.dailyHydration) {
+      appState.dailyHydration = {}
+    }
+    if (!appState.dailyHydration[today]) {
+      appState.dailyHydration[today] = 0
+    }
+
+    appState.dailyHydration[today] += amount
+    Utils.saveData(loggedInUser, appState)
+    renderHydration()
+
+    // Reset to default value instead of clearing
+    hydrationInput.value = "8"
+    updateCounterButtons()
+  })
+
+  // --- OTHER EVENT LISTENERS ---
   addMealBtn.addEventListener("click", () =>
     addMealModal.classList.add("visible")
   )
@@ -440,28 +550,6 @@ document.addEventListener("DOMContentLoaded", () => {
     closeEditGoalsModal()
   })
 
-  logWaterBtn.addEventListener("click", () => {
-    const amount = parseInt(hydrationInput.value)
-    if (!amount || amount <= 0) {
-      Utils.showAlert(
-        "Invalid Amount",
-        "Please enter a positive number for ounces."
-      )
-      return
-    }
-    const today = Utils.getTodayString()
-    if (!appState.dailyHydration) {
-      appState.dailyHydration = {}
-    }
-    if (!appState.dailyHydration[today]) {
-      appState.dailyHydration[today] = 0
-    }
-    appState.dailyHydration[today] += amount
-    Utils.saveData(loggedInUser, appState)
-    renderHydration()
-    hydrationInput.value = ""
-  })
-
   document
     .getElementById("ok-alert-modal-btn")
     .addEventListener("click", () =>
@@ -498,6 +586,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           if (!appState.dailyHydration) appState.dailyHydration = {}
           renderPage()
+          updateCounterButtons() // Initialize counter button states
         } else {
           Utils.showAlert("Error", "Could not find user data. Logging out.")
           setTimeout(() => Utils.logout(loggedInUser), 2000)
