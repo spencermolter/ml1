@@ -400,7 +400,7 @@ select:focus {
 .linear-progress-bar {
     width: 100%;
     height: 10px;
-    background-color: var(--bg-light-1);
+    background-color: #555;
     border-radius: 10px;
     margin: 10px 0;
 }

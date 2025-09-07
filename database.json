@@ -159,7 +159,9 @@
       "username": "test",
       "trackerData": {
         "gymStreak": 0,
-        "foodLog": {},
+        "foodLog": {
+          "2025-09-07": []
+        },
         "goals": {
           "calories": 2000,
           "protein": 150,

@@ -84,11 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!document.getElementById("remove-water-btn")) {
         const removeBtn = document.createElement("button")
         removeBtn.id = "remove-water-btn"
-        removeBtn.className = "log-button"
-        removeBtn.style.backgroundColor = "var(--accent-red)"
-        removeBtn.style.minWidth = "120px"
-        removeBtn.style.height = "40px"
-        removeBtn.textContent = "Remove Water"
+        removeBtn.className = "log-button skip-button remove-water-btn"
+        removeBtn.textContent = "Remove"
 
         removeBtn.addEventListener("click", () => {
           const removeAmount = parseInt(hydrationInput.value)
@@ -193,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hydrationGoal = appState.goals?.hydration || 0
     const calculationGoal = hydrationGoal > 0 ? hydrationGoal : 1
 
-    hydrationSummary.textContent = `${currentHydration} / ${hydrationGoal} oz`
+    hydrationSummary.textContent = `${currentHydration} / ${hydrationGoal} oz `
 
     const percentage = Math.min(100, (currentHydration / calculationGoal) * 100)
     hydrationProgressFill.style.width = `${percentage}%`
