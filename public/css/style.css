@@ -282,13 +282,11 @@ select:focus {
 
 .circular-progress .progress-text {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 0;
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 14px;
+    margin-top: 0px; /* half of font-size */
     font-size: 14px;
     font-weight: 600;
     text-align: center;
@@ -299,21 +297,17 @@ select:focus {
 /* Responsive text size for progress circles */
 @media (min-width: 1200px) {
     .circular-progress .progress-text {
-        font-size: 16px; /* Increased from 13px */
-    }
-    .circular-progress .progress-circle-bg,
-    .circular-progress .progress-circle {
-        stroke-width: 10;
+        font-size: 16px;
+        height: 16px;
+        margin-top: -8px; /* half of font-size */
     }
 }
 
 @media (max-width: 600px) {
     .circular-progress .progress-text {
-        font-size: 12px; /* Increased from 10px */
-    }
-    .circular-progress .progress-circle-bg,
-    .circular-progress .progress-circle {
-        stroke-width: 6;
+        font-size: 12px;
+        height: 12px;
+        margin-top: -6px; /* half of font-size */
     }
 }
 
