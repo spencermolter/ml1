@@ -389,11 +389,17 @@ select:focus {
 
 /* HYDRATION STYLES */
 .hydration-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--bg-light-1);
     padding: 1px 20px 20px;
     border-radius: 5px;
     margin-top: 0px;
     margin-bottom: 20px;
+}
+.hydration-header {
+    width: 100%;
 }
 
 .linear-progress-bar {
@@ -402,6 +408,10 @@ select:focus {
     background-color: #555;
     border-radius: 10px;
     margin: 10px 0;
+}
+
+.remove-water-btn {
+    margin-top: 10px;
 }
 
 .progress-fill {
@@ -422,72 +432,45 @@ select:focus {
 }
 /* END HYDRATION STYLES */
 
-
-/* Updated hydration counter styles */
+/* Simplified hydration counter styles - no plus/minus buttons */
 .hydration-controls-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    width: 100%;
+    gap: 12px;
+    flex-wrap: nowrap;
+    width: auto;
+    max-width: 200px; /* Reduced since we removed buttons */
+    margin: 0 auto;
 }
 
 .hydration-counter {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     flex-shrink: 0;
     flex-wrap: nowrap;
 }
 
+/* Hide the plus/minus buttons */
 .hydration-counter-btn {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #555;
-    background-color: var(--bg-dark-2);
-    color: var(--text-light);
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-    min-width: 40px;
-    min-height: 40px;
-}
-
-.hydration-counter-btn:hover {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
-    transform: translateY(-1px);
-}
-
-.hydration-counter-btn:disabled {
-    background-color: var(--bg-light-1);
-    color: #777;
-    cursor: not-allowed;
-    transform: none;
+    display: none;
 }
 
 .hydration-counter-input {
-    width: 70px;
+    width: 80px;
     height: 40px;
-    padding: 0 10px;
+    padding: 0 8px;
     background-color: var(--bg-dark-1);
     border: 2px solid #555;
-    border-radius: 6px;
+    border-radius: 4px;
     color: var(--text-light);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     text-align: center;
     box-sizing: border-box;
     flex-shrink: 0;
-    min-width: 70px;
+    min-width: 60px;
 }
 
 .hydration-counter-input:focus {
@@ -498,108 +481,57 @@ select:focus {
 
 .hydration-log-form {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
+    flex-wrap: nowrap;
+    width: auto;
+    max-width: 300px; /* Reduced since we removed buttons */
+    margin: 0 auto;
 }
 
 .hydration-log-form button {
-    padding: 10px 20px;
-    height: 40px;
+    padding: 12px 24px;
+    height: auto;
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: auto;
     min-width: 120px;
+    max-width: 150px;
     white-space: nowrap;
     border-radius: 8px;
+    font-size: 16px;
 }
 
-/* Mobile responsive adjustments */
+.remove-water-btn {
+    display: block;
+    margin: 10px auto 0;
+}
+
+/* Mobile responsive adjustments - simplified without buttons */
 @media (max-width: 768px) {
     .hydration-controls-container {
         justify-content: center;
-        gap: 12px;
-    }
-    
-    .hydration-counter {
         gap: 8px;
+        max-width: 280px;
     }
     
-    .hydration-counter-btn {
-        width: 36px;
-        height: 36px;
+    .hydration-counter-input {
+        width: 80px;
+        height: 48px;
         font-size: 18px;
-        min-width: 36px;
-        min-height: 36px;
     }
     
-    .hydration-counter-input {
-        width: 60px;
-        height: 36px;
-        font-size: 15px;
-        min-width: 60px;
-    }
-    
-    .hydration-log-form button {
-        height: 36px;
-        padding: 8px 16px;
-        font-size: 15px;
-        min-width: 110px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hydration-controls-container {
-        gap: 10px;
-    }
-    
-    .hydration-counter {
-        gap: 6px;
-    }
-    
-    .hydration-counter-btn {
-        width: 34px;
-        height: 34px;
-        font-size: 16px;
-        min-width: 34px;
-        min-height: 34px;
-    }
-    
-    .hydration-counter-input {
-        width: 55px;
-        height: 34px;
-        font-size: 14px;
-        min-width: 55px;
-        padding: 0 8px;
-    }
-    
-    .hydration-log-form button {
-        height: 34px;
-        padding: 6px 14px;
-        font-size: 14px;
-        min-width: 100px;
-    }
-}
-
-/* For very narrow screens - stack vertically if needed */
-@media (max-width: 320px) {
     .hydration-log-form {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .hydration-controls-container {
-        justify-content: center;
-        width: 100%;
-        margin-bottom: 10px;
+        max-width: 300px;
     }
     
     .hydration-log-form button {
-        width: 100%;
-        max-width: 200px;
+        height: auto;
+        padding: 12px 24px;
+        font-size: 16px;
     }
 }
 

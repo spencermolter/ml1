@@ -167,7 +167,7 @@
           "protein": 150,
           "carbs": 200,
           "fat": 70,
-          "hydration": 64
+          "hydration": 110
         },
         "presetFoods": [],
         "workoutTemplates": {},
@@ -186,7 +186,9 @@
         "lastGymLog": null,
         "lastCompletionDate": null,
         "dailyHydration": {
-          "2025-09-07": 64
+          "2025-09-07": 64,
+          "2025-09-09": 0,
+          "2025-09-10": 0
         }
       }
     }

@@ -26,8 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "hydration-progress-fill"
   )
   const hydrationInput = document.getElementById("hydration-input")
-  const hydrationMinusBtn = document.getElementById("hydration-minus-btn")
-  const hydrationPlusBtn = document.getElementById("hydration-plus-btn")
   const logWaterBtn = document.getElementById("log-water-btn")
   const hydrationCompleteBadge = document.getElementById(
     "hydration-complete-badge"
@@ -65,21 +63,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let appState = {}
   let currentMealIndex = null
 
-  // --- HYDRATION COUNTER FUNCTIONS ---
-  function updateCounterButtons() {
-    const currentValue = parseInt(hydrationInput.value) || 0
-    hydrationMinusBtn.disabled = currentValue <= 0
-    hydrationPlusBtn.disabled = currentValue >= 99
-  }
-
+  // --- HYDRATION FUNCTIONS (SIMPLIFIED) ---
   function addRemoveWaterButton() {
     const today = Utils.getTodayString()
     const currentHydration = appState.dailyHydration?.[today] || 0
+    const hydrationCard = document.querySelector(".hydration-card")
 
     // Only show remove button if there's water logged
     if (currentHydration > 0) {
-      const hydrationLogForm = document.querySelector(".hydration-log-form")
-
       // Check if remove button already exists
       if (!document.getElementById("remove-water-btn")) {
         const removeBtn = document.createElement("button")
@@ -107,11 +98,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Reset input
           hydrationInput.value = "8"
-          updateCounterButtons()
         })
 
-        // Add the remove button to the hydration log form
-        hydrationLogForm.appendChild(removeBtn)
+        // Add the remove button to the hydration card
+        hydrationCard.appendChild(removeBtn)
       }
     } else {
       // Remove the button if no water is logged
@@ -360,25 +350,10 @@ document.addEventListener("DOMContentLoaded", () => {
     editGoalsModal.classList.remove("visible")
   }
 
-  // --- HYDRATION EVENT LISTENERS ---
-  hydrationPlusBtn.addEventListener("click", () => {
-    const currentValue = parseInt(hydrationInput.value) || 0
-    const newValue = Math.min(99, currentValue + 1)
-    hydrationInput.value = newValue
-    updateCounterButtons()
-  })
-
-  hydrationMinusBtn.addEventListener("click", () => {
-    const currentValue = parseInt(hydrationInput.value) || 0
-    const newValue = Math.max(0, currentValue - 1)
-    hydrationInput.value = newValue
-    updateCounterButtons()
-  })
-
+  // --- HYDRATION EVENT LISTENERS (SIMPLIFIED) ---
   hydrationInput.addEventListener("input", () => {
     const value = parseInt(hydrationInput.value) || 0
     hydrationInput.value = Math.max(0, Math.min(99, value))
-    updateCounterButtons()
   })
 
   logWaterBtn.addEventListener("click", () => {
@@ -405,7 +380,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Reset to default value instead of clearing
     hydrationInput.value = "8"
-    updateCounterButtons()
   })
 
   // --- OTHER EVENT LISTENERS ---
@@ -584,7 +558,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           if (!appState.dailyHydration) appState.dailyHydration = {}
           renderPage()
-          updateCounterButtons() // Initialize counter button states
         } else {
           Utils.showAlert("Error", "Could not find user data. Logging out.")
           setTimeout(() => Utils.logout(loggedInUser), 2000)
