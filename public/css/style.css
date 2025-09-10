@@ -311,10 +311,10 @@ select:focus {
     }
 }
 
-.circular-progress.calories .progress-circle { stroke: var(--accent-blue); }
-.circular-progress.protein .progress-circle { stroke: var(--accent-red); }
+.circular-progress.calories .progress-circle { stroke: var(--accent-orange); }
+.circular-progress.protein .progress-circle { stroke: var(--accent-purple); }
 .circular-progress.carbs .progress-circle { stroke: var(--accent-purple); }
-.circular-progress.fat .progress-circle { stroke: var(--accent-orange); }
+.circular-progress.fat .progress-circle { stroke: var(--accent-purple); }
 
 /* Ensure progress summary has proper spacing and larger font */
 .progress-summary { 
